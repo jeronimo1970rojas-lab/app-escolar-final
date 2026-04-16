@@ -1,43 +1,109 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-<link rel="manifest" href="manifest.json">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<!-- Para iOS -->
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black">
-
-<!-- Icono -->
-<link rel="apple-touch-icon" href="icon.png">
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
   <title>App Escolar</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Ajuste para móviles -->
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <!-- Framework7 CSS -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/framework7@7/framework7-bundle.min.css">
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0d6efd">
 
   <style>
     body {
       font-family: Arial;
+      text-align: center;
+      margin: 0;
+      background: #f4f4f4;
+    }
+
+    .pantalla {
+      display: none;
+      padding: 20px;
+    }
+
+    .activa {
+      display: block;
+    }
+
+    button {
+      padding: 15px;
+      margin: 10px;
+      font-size: 16px;
+      border: none;
+      border-radius: 10px;
+      background: #0d6efd;
+      color: white;
+    }
+
+    input {
+      padding: 10px;
+      margin: 5px;
+      width: 80%;
     }
   </style>
 </head>
 
 <body>
 
-<!-- App -->
-<div id="app">
-  <div class="view view-main"></div>
+<!-- 🟢 PANTALLA INICIO -->
+<div id="inicio" class="pantalla activa">
+  <h1>📚 App Escolar</h1>
+  <button onclick="ir('profesor')">Ingresar Profesor</button>
+  <button onclick="ir('alumno')">Ingresar Alumno / Padre</button>
 </div>
 
-<!-- Framework7 JS -->
-<script src="https://cdn.jsdelivr.net/npm/framework7@7/framework7-bundle.min.js"></script>
+<!-- 🟣 PANTALLA PROFESOR -->
+<div id="profesor" class="pantalla">
+  <h2>👨‍🏫 Profesor</h2>
 
-<!-- TU APP -->
-<script src="app.js" defer></script>
+  <input type="text" id="nombre" placeholder="Nombre del alumno"><br>
+  <input type="text" id="nota" placeholder="Nota"><br>
+
+  <button onclick="guardar()">Guardar Nota</button>
+  <button onclick="ir('inicio')">Volver</button>
+</div>
+
+<!-- 🔵 PANTALLA ALUMNO -->
+<div id="alumno" class="pantalla">
+  <h2>👨‍🎓 Alumno</h2>
+
+  <input type="text" id="buscar" placeholder="Nombre"><br>
+  <button onclick="buscar()">Buscar Nota</button>
+
+  <h3 id="resultado"></h3>
+
+  <button onclick="ir('inicio')">Volver</button>
+</div>
+
+<script>
+function ir(pantalla) {
+  document.querySelectorAll(".pantalla").forEach(p => p.classList.remove("activa"));
+  document.getElementById(pantalla).classList.add("activa");
+}
+
+// Guardar nota
+function guardar() {
+  let nombre = document.getElementById("nombre").value;
+  let nota = document.getElementById("nota").value;
+
+  localStorage.setItem(nombre, nota);
+
+  alert("Nota guardada");
+}
+
+// Buscar nota
+function buscar() {
+  let nombre = document.getElementById("buscar").value;
+  let nota = localStorage.getItem(nombre);
+
+  if (nota) {
+    document.getElementById("resultado").innerText = "Nota: " + nota;
+  } else {
+    document.getElementById("resultado").innerText = "No encontrado";
+  }
+}
+</script>
+
 </body>
 </html>
-
