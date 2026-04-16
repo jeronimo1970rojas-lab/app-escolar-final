@@ -1,0 +1,28 @@
+function doPost(e) {
+
+  var data = JSON.parse(e.postData.contents);
+  var hoja = SpreadsheetApp.openById("1dRelIzmKechaZCzzwTY64hR2kSt6gvMoXKO51DElB2w").getSheetByName("usuario");
+
+  var datos = hoja.getDataRange().getValues();
+
+  for (var i = 1; i < datos.length; i++) {
+
+    var usuario = datos[i][0];
+    var password = datos[i][1];
+    var tipo = datos[i][2];
+    var nombre = datos[i][3];
+
+    if (usuario == data.usuario && password == data.password) {
+
+      return ContentService.createTextOutput(JSON.stringify({
+        status: "ok",
+        tipo: tipo,
+        nombre: nombre
+      })).setMimeType(ContentService.MimeType.JSON);
+    }
+  }
+
+  return ContentService.createTextOutput(JSON.stringify({
+    status: "error"
+  })).setMimeType(ContentService.MimeType.JSON);
+}
