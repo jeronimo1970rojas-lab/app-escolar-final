@@ -7,38 +7,46 @@ var app = new Framework7({
   routes: [
 
     // 🔵 INICIO (PANTALLA 1)
-    {
-      path: '/inicio/',
-      content: `
-      <div class="page">
-        <div class="page-content" style="
-          display:flex;
-          flex-direction:column;
-          justify-content:center;
-          align-items:center;
-          height:100vh;
-          text-align:center;
-          background: linear-gradient(to bottom, #2196f3, #64b5f6);
-          color:white;
-        ">
+   {
+  path: '/inicio/',
+  content: `
+  <div class="page">
+    <div class="page-content" style="
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      height:100vh;
+      text-align:center;
+      background: linear-gradient(to bottom, #2196f3, #64b5f6);
+      color:white;
+      padding:20px;
+    ">
 
-<img src="logo.png">
-               width="120"
-               style="margin-bottom:20px;">
+      <!-- LOGO COLEGIO -->
+      <img src="logo.png"
+           style="width:120px; margin-bottom:15px;">
 
-          <h2>COLEGIO BRITANICO</h2>
+      <h2 style="margin:10px 0;">COLEGIO BRITÁNICO</h2>
 
-<img src="profesor.jpg">
-               width="100"
-               style="border-radius:50%; margin:20px; border:3px solid white;">
+      <!-- FOTO PROFESOR -->
+      <img src="profesor.jpg"
+           style="
+           width:110px;
+           height:110px;
+           border-radius:50%;
+           object-fit:cover;
+           border:3px solid white;
+           margin:15px 0;
+           ">
 
-          <p>BIENVENIDO A LA PRE-PROMO 5tO. B</p>
-          <p>Cargando información...</p>
+      <p style="margin:5px;">BIENVENIDO A LA PRE-PROMO 5to. B</p>
+      <p style="font-size:14px;">Cargando información...</p>
 
-        </div>
-      </div>
-      `
-    },
+    </div>
+  </div>
+  `
+}
 
     // 🟡 INFORMACIÓN GENERAL
     {
