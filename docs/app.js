@@ -126,7 +126,7 @@ app.views.main = mainView;
 
 // 🚀 INICIO AUTOMÁTICO (MUESTRA PANTALLA 1)
 document.addEventListener("DOMContentLoaded", function () 
-	else {
+	
     // Flujo normal
     mainView.router.navigate('/inicio/');
 
@@ -134,7 +134,7 @@ document.addEventListener("DOMContentLoaded", function ()
       mainView.router.navigate('/info/');
       setTimeout(cargarAvisos, 500);
     }, 8000);
-  }
+  
 
 });
 // 🔗 URL GOOGLE SCRIPT
