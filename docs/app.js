@@ -46,7 +46,7 @@ var app = new Framework7({
     </div>
   </div>
   `
-}
+},
 
     // 🟡 INFORMACIÓN GENERAL
     {
