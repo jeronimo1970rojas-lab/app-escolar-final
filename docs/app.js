@@ -22,13 +22,13 @@ var app = new Framework7({
           color:white;
         ">
 
- <img src="https://i.ibb.co/7tHQqBrK/logo.png"
+<img src="logo.png">
                width="120"
                style="margin-bottom:20px;">
 
           <h2>COLEGIO BRITANICO</h2>
 
-<img src="https://i.ibb.co/TxXvzg0n/profesor.jpg"
+<img src="profesor.jpg">
                width="100"
                style="border-radius:50%; margin:20px; border:3px solid white;">
 
