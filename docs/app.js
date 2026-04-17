@@ -7,7 +7,7 @@ var app = new Framework7({
   routes: [
 
     // 🔵 INICIO (PANTALLA 1)
-   {
+ {
   path: '/inicio/',
   content: `
   <div class="page">
@@ -23,6 +23,30 @@ var app = new Framework7({
       padding:20px;
     ">
 
+      <!-- LOGO COLEGIO -->
+      <img src="logo.png"
+           style="width:120px; margin-bottom:15px;">
+
+      <h2 style="margin:10px 0;">COLEGIO BRITÁNICO</h2>
+
+      <!-- FOTO PROFESOR -->
+      <img src="profesor.jpg"
+           style="
+           width:110px;
+           height:110px;
+           border-radius:50%;
+           object-fit:cover;
+           border:3px solid white;
+           margin:15px 0;
+           ">
+
+      <p style="margin:5px;">BIENVENIDO A LA PRE-PROMO 5to. B</p>
+      <p style="font-size:14px;">Cargando información...</p>
+
+    </div>
+  </div>
+  `
+}
       <!-- LOGO COLEGIO -->
       <img src="logo.png"
            style="width:120px; margin-bottom:15px;">
