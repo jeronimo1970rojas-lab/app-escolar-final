@@ -129,10 +129,7 @@ document.addEventListener("DOMContentLoaded", function ()
 	
   
 
-    setTimeout(function () {
-      mainView.router.navigate('/info/');
-      setTimeout(cargarAvisos, 500);
-    }, 8000);
+  
   
 
 });
