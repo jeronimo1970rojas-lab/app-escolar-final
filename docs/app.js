@@ -124,13 +124,14 @@ var app = new Framework7({
 var mainView = app.views.create('.view-main');
 app.views.main = mainView;
 
-// 🚀 INICIO AUTOMÁTICO (MUESTRA PANTALLA 1)
-document.addEventListener("DOMContentLoaded", function () 
-	
-  
+// 🚀 INICIO AUTOMÁTICO (SIEMPRE IR A INICIO)
+document.addEventListener("DOMContentLoaded", function () {
 
-  
-  
+  // 🧹 Limpiar cualquier sesión anterior
+  localStorage.clear();
+
+  // 🟢 Ir siempre a pantalla inicial
+  mainView.router.navigate('/inicio/');
 
 });
 // 🔗 URL GOOGLE SCRIPT
@@ -158,6 +159,7 @@ function mostrarDisciplina() {
 }
 
 // 🟢 LOGIN
+// 🟢 LOGIN
 function login() {
 
   var usuario = document.getElementById("usuario").value;
@@ -173,28 +175,27 @@ function login() {
     })
     .then(data => {
 
-     if (data.status === "ok") {
+      if (data.status === "ok") {
 
-  // ❌ YA NO GUARDAMOS SESIÓN
+        // ✅ NO GUARDAR SESIÓN
+        // (quitamos localStorage)
 
-  mainView.router.navigate('/panel/');
+        mainView.router.navigate('/panel/');
 
-  setTimeout(function(){
-    cargarDatos(data);
-  }, 500);
-}
+        setTimeout(function(){
+          cargarDatos(data);
+        }, 500);
 
-       else {
-        alert("Usuario incorrecto");
+      } else {
+        alert("Usuario o contraseña incorrectos");
       }
 
     })
     .catch(err => {
-      console.error("Error:", err);
-      alert("Error conectando con el servidor");
+      console.error("Error en login:", err);
+      alert("Error de conexión");
     });
 }
-
 // 📊 CARGAR DATOS
 function cargarDatos(data) {
 
