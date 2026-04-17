@@ -2,7 +2,6 @@
 var app = new Framework7({
   el: '#app',
   name: 'App Escolar',
-	localStorage.clear(); // 👈 aquí
   id: 'com.app.escolar',
 
   routes: [
