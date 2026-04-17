@@ -9,7 +9,16 @@ var app = new Framework7({
     // 🔵 INICIO (PANTALLA 1)
 {
   path: '/inicio/',
-  content: `
+  content: `...`,
+  on: {
+    pageAfterIn: function () {
+
+      setTimeout(function () {
+        mainView.router.navigate('/login/');
+      }, 3000);
+
+    }
+  }
   <div class="page">
     <div class="page-content" style="
       display:flex;
