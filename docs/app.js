@@ -2,6 +2,7 @@
 var app = new Framework7({
   el: '#app',
   name: 'App Escolar',
+	localStorage.clear(); // 👈 aquí
   id: 'com.app.escolar',
 
   routes: [
@@ -125,14 +126,8 @@ var mainView = app.views.create('.view-main');
 app.views.main = mainView;
 
 // 🚀 INICIO AUTOMÁTICO (MUESTRA PANTALLA 1)
-document.addEventListener("DOMContentLoaded", function () {
-
-  var usuarioGuardado = localStorage.getItem("usuario");
-
-  if (usuarioGuardado) {
-    // Ya está logueado
-    mainView.router.navigate('/panel/');
-  } else {
+document.addEventListener("DOMContentLoaded", function () 
+	else {
     // Flujo normal
     mainView.router.navigate('/inicio/');
 
@@ -183,16 +178,18 @@ function login() {
     })
     .then(data => {
 
-      if (data.status === "ok") {
-	localStorage.setItem("usuario", usuario);
-	localStorage.setItem("nombre", data.nombre);
-        mainView.router.navigate('/panel/');
+     if (data.status === "ok") {
 
-        setTimeout(function(){
-          cargarDatos(data);
-        }, 500);
+  // ❌ YA NO GUARDAMOS SESIÓN
 
-      } else {
+  mainView.router.navigate('/panel/');
+
+  setTimeout(function(){
+    cargarDatos(data);
+  }, 500);
+}
+
+       else {
         alert("Usuario incorrecto");
       }
 
