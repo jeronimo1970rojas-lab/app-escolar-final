@@ -7,55 +7,48 @@ var app = new Framework7({
   routes: [
 
     // 🔵 INICIO (PANTALLA 1)
-{
-  path: '/inicio/',
-  content: `...`,
-  on: {
-    pageAfterIn: function () {
+    {
+      path: '/inicio/',
+      content: `
+      <div class="page">
+        <div class="page-content" style="
+          display:flex;
+          flex-direction:column;
+          justify-content:center;
+          align-items:center;
+          height:100vh;
+          text-align:center;
+          background: linear-gradient(to bottom, #2196f3, #64b5f6);
+          color:white;
+          padding:20px;
+        ">
 
-      setTimeout(function () {
-        mainView.router.navigate('/login/');
-      }, 3000);
+          <img src="logo.png" style="width:120px; margin-bottom:15px;">
+          <h2>COLEGIO BRITÁNICO</h2>
 
-    }
-  }
-  <div class="page">
-    <div class="page-content" style="
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-      align-items:center;
-      height:100vh;
-      text-align:center;
-      background: linear-gradient(to bottom, #2196f3, #64b5f6);
-      color:white;
-      padding:20px;
-    ">
+          <img src="profesor.jpg" style="
+            width:110px;
+            height:110px;
+            border-radius:50%;
+            object-fit:cover;
+            border:3px solid white;
+            margin:15px 0;
+          ">
 
-      <!-- LOGO COLEGIO -->
-      <img src="logo.png"
-           style="width:120px; margin-bottom:15px;">
+          <p>BIENVENIDO A LA PRE-PROMO 5to. B</p>
+          <p>Cargando...</p>
 
-      <h2 style="margin:10px 0;">COLEGIO BRITÁNICO</h2>
-
-      <!-- FOTO PROFESOR -->
-      <img src="profesor.jpg"
-           style="
-           width:110px;
-           height:110px;
-           border-radius:50%;
-           object-fit:cover;
-           border:3px solid white;
-           margin:15px 0;
-           ">
-
-      <p style="margin:5px;">BIENVENIDO A LA PRE-PROMO 5to. B</p>
-      <p style="font-size:14px;">Cargando información...</p>
-
-    </div>
-  </div>
-  `
-},
+        </div>
+      </div>
+      `,
+      on: {
+        pageAfterIn: function () {
+          setTimeout(function () {
+            mainView.router.navigate('/info/');
+          }, 3000);
+        }
+      }
+    },
 
     // 🟡 INFORMACIÓN GENERAL
     {
@@ -63,18 +56,20 @@ var app = new Framework7({
       content: `
       <div class="page">
         <div class="page-content" style="padding:20px; text-align:center;">
-          
           <h2>INFORMACION GENERAL</h2>
 
           <div id="avisos">Cargando avisos...</div>
 
           <br>
-
           <button onclick="irLogin()">Ingresar</button>
-
         </div>
       </div>
-      `
+      `,
+      on: {
+        pageAfterIn: function () {
+          cargarAvisos();
+        }
+      }
     },
 
     // 🟢 LOGIN
@@ -108,9 +103,9 @@ var app = new Framework7({
 
         <div class="page-content">
 
-<button style="margin:10px; padding:10px 20px; border:none; border-radius:8px; background:#2196f3; color:white;" onclick="mostrarNotas()">NOTAS</button>
+          <button onclick="mostrarNotas()">NOTAS</button>
+          <button onclick="mostrarDisciplina()">DISCIPLINA</button>
 
-<button style="margin:10px; padding:10px 20px; border:none; border-radius:8px; background:#f44336; color:white;" onclick="mostrarDisciplina()">DISCIPLINA</button>
           <div id="seccionNotas">
             <h3>ACADEMICO</h3>
             <div id="notas"></div>
@@ -131,18 +126,13 @@ var app = new Framework7({
 
 // 📱 VISTA
 var mainView = app.views.create('.view-main');
-app.views.main = mainView;
 
-// 🚀 INICIO AUTOMÁTICO (SIEMPRE IR A INICIO)
+// 🚀 INICIO AUTOMÁTICO
 document.addEventListener("DOMContentLoaded", function () {
-
-  // 🧹 Limpiar cualquier sesión anterior
   localStorage.clear();
-
-  // 🟢 Ir siempre a pantalla inicial
   mainView.router.navigate('/inicio/');
-
 });
+
 // 🔗 URL GOOGLE SCRIPT
 var url = "https://script.google.com/macros/s/AKfycbzUm_dEoBBu-uIoR-dlZtuR-vzxq7eQXYk82bzlNZd7iieyvF8qgLIAF9mIeI5MJEvH/exec";
 
@@ -156,6 +146,7 @@ function logout() {
   localStorage.clear();
   mainView.router.navigate('/login/');
 }
+
 // 🔄 CAMBIAR VISTAS
 function mostrarNotas() {
   document.getElementById("seccionNotas").style.display = "block";
@@ -168,7 +159,6 @@ function mostrarDisciplina() {
 }
 
 // 🟢 LOGIN
-// 🟢 LOGIN
 function login() {
 
   var usuario = document.getElementById("usuario").value;
@@ -178,16 +168,10 @@ function login() {
 
   fetch(fullUrl)
     .then(res => res.text())
-    .then(text => {
-      console.log("RESPUESTA:", text);
-      return JSON.parse(text);
-    })
+    .then(text => JSON.parse(text))
     .then(data => {
 
       if (data.status === "ok") {
-
-        // ✅ NO GUARDAR SESIÓN
-        // (quitamos localStorage)
 
         mainView.router.navigate('/panel/');
 
@@ -205,6 +189,7 @@ function login() {
       alert("Error de conexión");
     });
 }
+
 // 📊 CARGAR DATOS
 function cargarDatos(data) {
 
@@ -214,20 +199,12 @@ function cargarDatos(data) {
   var notasHTML = "";
 
   data.notas.forEach(function(n){
-notasHTML += `
-  <div style="
-    background:white;
-    margin:10px;
-    padding:15px;
-    border-radius:12px;
-    box-shadow:0 3px 8px rgba(0,0,0,0.2);
-    font-size:16px;">
-    
-    📘 <b>${n.materia}</b><br>
-    Nota: <span style="color:#2196f3; font-weight:bold;">${n.nota}</span>
-
-  </div>
-`;
+    notasHTML += `
+      <div>
+        📘 <b>${n.materia}</b><br>
+        Nota: ${n.nota}
+      </div>
+    `;
   });
 
   document.getElementById("notas").innerHTML = notasHTML;
@@ -235,18 +212,11 @@ notasHTML += `
   var discHTML = "";
 
   data.disciplina.forEach(function(d){
-discHTML += `
-  <div style="
-    background:#ffebee;
-    margin:10px;
-    padding:15px;
-    border-radius:12px;
-    box-shadow:0 3px 8px rgba(0,0,0,0.2);">
-    
-    ⚠️ ${d.detalle}
-
-  </div>
-`;
+    discHTML += `
+      <div>
+        ⚠️ ${d.detalle}
+      </div>
+    `;
   });
 
   document.getElementById("disciplina").innerHTML = discHTML;
@@ -258,10 +228,8 @@ function cargarAvisos() {
   fetch(url + "?accion=avisos")
     .then(res => res.text())
     .then(text => {
-      console.log("AVISOS RAW:", text);
 
       var data = JSON.parse(text);
-
       var contenedor = document.getElementById("avisos");
 
       if (!contenedor) return;
@@ -269,28 +237,15 @@ function cargarAvisos() {
       var html = "";
 
       data.forEach(function(a){
-        if (a.mensaje && a.mensaje.trim() !== "") {
-          html += `
-            <div style="
-              background:#fff3cd;
-              margin:10px;
-              padding:15px;
-              border-radius:10px;">
-              📢 ${a.mensaje}
-            </div>
-          `;
+        if (a.mensaje) {
+          html += `<div>📢 ${a.mensaje}</div>`;
         }
       });
 
-      if (html === "") {
-        html = "No hay avisos disponibles";
-      }
-
-      contenedor.innerHTML = html;
+      contenedor.innerHTML = html || "No hay avisos";
 
     })
-    .catch(err => {
-      console.error("Error avisos:", err);
+    .catch(() => {
       document.getElementById("avisos").innerHTML = "Error cargando avisos";
     });
 }
