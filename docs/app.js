@@ -127,8 +127,7 @@ app.views.main = mainView;
 // 🚀 INICIO AUTOMÁTICO (MUESTRA PANTALLA 1)
 document.addEventListener("DOMContentLoaded", function () 
 	
-    // Flujo normal
-    mainView.router.navigate('/inicio/');
+  
 
     setTimeout(function () {
       mainView.router.navigate('/info/');
