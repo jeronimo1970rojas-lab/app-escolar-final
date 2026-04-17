@@ -7,7 +7,7 @@ var app = new Framework7({
   routes: [
 
     // 🔵 INICIO (PANTALLA 1)
- {
+{
   path: '/inicio/',
   content: `
   <div class="page">
