@@ -279,3 +279,10 @@ document.addEventListener("click", function(e) {
     login();
   }
 });
+// 🔥 EVENTO BOTÓN LOGIN
+document.addEventListener("click", function(e) {
+  if (e.target && e.target.id === "btnLogin") {
+    console.log("Botón presionado"); // 👈 prueba
+    login();
+  }
+});
