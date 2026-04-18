@@ -65,7 +65,17 @@ var app = new Framework7({
           <div id="avisos">Cargando avisos...</div>
 
           <br>
-          <button onclick="irLogin()">Ingresar</button>
+   <button onclick="irLogin()" style="
+  background: linear-gradient(135deg, #2196f3, #21cbf3);
+  border:none;
+  color:white;
+  padding:12px 25px;
+  border-radius:25px;
+  font-size:16px;
+  box-shadow:0 4px 10px rgba(0,0,0,0.2);
+">
+  Ingresar
+</button>
         </div>
       </div>
       `,
@@ -87,7 +97,17 @@ var app = new Framework7({
           <input type="text" id="usuario" placeholder="Usuario"><br><br>
           <input type="password" id="password" placeholder="Contraseña"><br><br>
 
-          <button onclick="login()">Ingresar</button>
+         <button onclick="irLogin()" style="
+  background: linear-gradient(135deg, #2196f3, #21cbf3);
+  border:none;
+  color:white;
+  padding:12px 25px;
+  border-radius:25px;
+  font-size:16px;
+  box-shadow:0 4px 10px rgba(0,0,0,0.2);
+">
+  Ingresar
+</button>
         </div>
       </div>
       `
