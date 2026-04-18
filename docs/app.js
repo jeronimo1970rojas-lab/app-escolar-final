@@ -184,7 +184,7 @@ function mostrarDisciplina() {
 
 // 🟢 LOGIN
 function login() {
-
+console.log("LOGIN FUNCIONANDO");
   var usuario = document.getElementById("usuario").value;
   var password = document.getElementById("password").value;
 
@@ -273,3 +273,9 @@ function cargarAvisos() {
       document.getElementById("avisos").innerHTML = "Error cargando avisos";
     });
 }
+// 🔥 EVENTO BOTÓN LOGIN
+document.addEventListener("click", function(e) {
+  if (e.target && e.target.id === "btnLogin") {
+    login();
+  }
+});
