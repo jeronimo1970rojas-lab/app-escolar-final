@@ -10,37 +10,41 @@ var app = new Framework7({
     {
       path: '/inicio/',
       content: `
-      <div class="page">
-        <div class="page-content" style="
-          display:flex;
-          flex-direction:column;
-          justify-content:center;
-          align-items:center;
-          height:100vh;
-          text-align:center;
-          background: linear-gradient(to bottom, #2196f3, #64b5f6);
-          color:white;
-          padding:20px;
-        ">
+<div class="page">
+  <div class="page-content" style="
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    text-align:center;
+    background: linear-gradient(135deg, #1e88e5, #42a5f5);
+    color:white;
+  ">
 
-          <img src="logo.png" style="width:120px; margin-bottom:15px;">
-          <h2>COLEGIO BRITÁNICO</h2>
+    <img src="logo.png" style="
+      width:120px;
+      margin-bottom:20px;
+      border-radius:20px;
+      box-shadow:0 4px 15px rgba(0,0,0,0.3);
+    ">
 
-          <img src="profesor.jpg" style="
-            width:110px;
-            height:110px;
-            border-radius:50%;
-            object-fit:cover;
-            border:3px solid white;
-            margin:15px 0;
-          ">
+    <h1 style="margin:0;">Colegio Británico</h1>
+    <p style="opacity:0.9;">Sistema Académico</p>
 
-          <p>BIENVENIDO A LA PRE-PROMO 5to. B</p>
-          <p>Cargando...</p>
+    <img src="profesor.jpg" style="
+      width:100px;
+      height:100px;
+      border-radius:50%;
+      margin:20px 0;
+      border:4px solid white;
+    ">
 
-        </div>
-      </div>
-      `,
+    <p style="font-size:14px;">Cargando aplicación...</p>
+
+  </div>
+</div>
+`,
       on: {
         pageAfterIn: function () {
           setTimeout(function () {
