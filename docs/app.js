@@ -158,7 +158,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 // 🔗 URL GOOGLE SCRIPT
-var url = "https://script.google.com/macros/s/AKfycbzUm_dEoBBu-uIoR-dlZtuR-vzxq7eQXYk82bzlNZd7iieyvF8qgLIAF9mIeI5MJEvH/exec";
+var url = "https://script.google.com/macros/s/AKfycbw6MxRCMovplXig_zHZz5GmDkEYlCW0YrNzpuWmvwHSPlTjLYuoTwjTY7n6Eh8rGKjY/exec";
 
 // 🟡 IR LOGIN
 function irLogin() {
