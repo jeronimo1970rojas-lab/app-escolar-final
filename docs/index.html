@@ -1,33 +1,45 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="manifest" href="manifest.json">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- Para iOS -->
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black">
-<!-- Icono -->
-<link rel="apple-touch-icon" href="icon-192.png">
-<meta charset="utf-8">
-<title>App Escolar</title>
-<!-- Ajuste para móviles -->
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- Framework7 CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/framework7@7/framework7-bundle.min.css">
-<style>
-body {
-font-family: Arial;
-}
-</style>
+  <meta charset="utf-8">
+  <title>App Escolar</title>
+
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json">
+
+  <!-- Responsive -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <link rel="apple-touch-icon" href="icon-192.png">
+
+  <!-- Framework7 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/framework7@7/framework7-bundle.min.css">
+
+  <style>
+    body { font-family: Arial; }
+
+    .fade {
+      animation: fadeIn 0.4s ease;
+    }
+
+    @keyframes fadeIn {
+      from {opacity:0; transform: translateY(10px);}
+      to {opacity:1; transform: translateY(0);}
+    }
+  </style>
 </head>
+
 <body>
-<!-- App -->
+
 <div id="app">
-<div class="view view-main"></div>
+  <div class="view view-main"></div>
 </div>
-<!-- Framework7 JS -->
+
 <script src="https://cdn.jsdelivr.net/npm/framework7@7/framework7-bundle.min.js"></script>
-<!-- TU APP -->
-<script src="app.js" defer></script>
+<script src="app.js"></script>
+
 </body>
 </html>
