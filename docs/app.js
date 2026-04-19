@@ -118,7 +118,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // URL
-var url = "https://script.google.com/macros/s/AKfycbzUm_dEoBBu-uIoR-dlZtuR-vzxq7eQXYk82bzlNZd7iieyvF8qgLIAF9mIeI5MJEvH/exec";
+var url = "https://script.google.com/macros/s/AKfycbwANmpVoK2Y-WTBQzlISkMzQIgE73FJ9GpwBY8vlpnxSU5fuPIZOBNJOvDJ06S0VLZQ/exec";
 
 // FUNCIONES
 function irLogin(){ mainView.router.navigate('/login/'); }
