@@ -10,41 +10,37 @@ var app = new Framework7({
     {
       path: '/inicio/',
       content: `
-<div class="page">
-  <div class="page-content" style="
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    height:100vh;
-    text-align:center;
-    background: linear-gradient(135deg, #1e88e5, #42a5f5);
-    color:white;
-  ">
+      <div class="page">
+        <div class="page-content" style="
+          display:flex;
+          flex-direction:column;
+          justify-content:center;
+          align-items:center;
+          height:100vh;
+          text-align:center;
+          background: linear-gradient(to bottom, #2196f3, #64b5f6);
+          color:white;
+          padding:20px;
+        ">
 
-    <img src="logo.png" style="
-      width:120px;
-      margin-bottom:20px;
-      border-radius:20px;
-      box-shadow:0 4px 15px rgba(0,0,0,0.3);
-    ">
+          <img src="logo.png" style="width:120px; margin-bottom:15px;">
+          <h2>COLEGIO BRITÁNICO</h2>
 
-    <h1 style="margin:0;">Colegio Británico</h1>
-    <p style="opacity:0.9;">Sistema Académico</p>
+          <img src="profesor.jpg" style="
+            width:110px;
+            height:110px;
+            border-radius:50%;
+            object-fit:cover;
+            border:3px solid white;
+            margin:15px 0;
+          ">
 
-    <img src="profesor.jpg" style="
-      width:100px;
-      height:100px;
-      border-radius:50%;
-      margin:20px 0;
-      border:4px solid white;
-    ">
+          <p>BIENVENIDO A LA PRE-PROMO 5to. B</p>
+          <p>Cargando...</p>
 
-    <p style="font-size:14px;">Cargando aplicación...</p>
-
-  </div>
-</div>
-`,
+        </div>
+      </div>
+      `,
       on: {
         pageAfterIn: function () {
           setTimeout(function () {
@@ -65,17 +61,7 @@ var app = new Framework7({
           <div id="avisos">Cargando avisos...</div>
 
           <br>
-   <button onclick="irLogin()" style="
-  background: linear-gradient(135deg, #2196f3, #21cbf3);
-  border:none;
-  color:white;
-  padding:12px 25px;
-  border-radius:25px;
-  font-size:16px;
-  box-shadow:0 4px 10px rgba(0,0,0,0.2);
-">
-  Ingresar
-</button>
+          <button onclick="irLogin()">Ingresar</button>
         </div>
       </div>
       `,
@@ -97,17 +83,7 @@ var app = new Framework7({
           <input type="text" id="usuario" placeholder="Usuario"><br><br>
           <input type="password" id="password" placeholder="Contraseña"><br><br>
 
-        <button id="btnLogin" style="
-  width:100%;
-  background: linear-gradient(135deg, #2196f3, #21cbf3);
-  border:none;
-  color:white;
-  padding:12px;
-  border-radius:25px;
-  font-size:16px;
-">
-  Ingresar
-</button>
+          <button onclick="login()">Ingresar</button>
         </div>
       </div>
       `
@@ -158,7 +134,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 // 🔗 URL GOOGLE SCRIPT
-var url = "https://script.google.com/macros/s/AKfycbw6MxRCMovplXig_zHZz5GmDkEYlCW0YrNzpuWmvwHSPlTjLYuoTwjTY7n6Eh8rGKjY/exec";
+var url = "https://script.google.com/macros/s/AKfycbzUm_dEoBBu-uIoR-dlZtuR-vzxq7eQXYk82bzlNZd7iieyvF8qgLIAF9mIeI5MJEvH/exec";
 
 // 🟡 IR LOGIN
 function irLogin() {
@@ -184,7 +160,7 @@ function mostrarDisciplina() {
 
 // 🟢 LOGIN
 function login() {
-console.log("LOGIN FUNCIONANDO");
+
   var usuario = document.getElementById("usuario").value;
   var password = document.getElementById("password").value;
 
@@ -273,16 +249,3 @@ function cargarAvisos() {
       document.getElementById("avisos").innerHTML = "Error cargando avisos";
     });
 }
-// 🔥 EVENTO BOTÓN LOGIN
-document.addEventListener("click", function(e) {
-  if (e.target && e.target.id === "btnLogin") {
-    login();
-  }
-});
-// 🔥 EVENTO BOTÓN LOGIN
-document.addEventListener("click", function(e) {
-  if (e.target && e.target.id === "btnLogin") {
-    console.log("Botón presionado"); // 👈 prueba
-    login();
-  }
-});
