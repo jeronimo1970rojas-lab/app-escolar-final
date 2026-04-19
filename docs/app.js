@@ -150,76 +150,90 @@ var app = new Framework7({
       `
     },
 
-    // 🔴 PANEL
-    {
-      path: '/panel/',
-      content: `
-      <div class="page">
+  // 🔴 PANEL
+{
+  path: '/panel/',
+  content: `
+  <div class="page">
 
-        <!-- HEADER PRO -->
-        <div style="
-          background: linear-gradient(135deg, #1e88e5, #42a5f5);
-          color:white;
-          padding:20px;
-          text-align:center;
-          border-bottom-left-radius:20px;
-          border-bottom-right-radius:20px;
-        ">
-          <h2 style="margin:0;">Reporte</h2>
-          <p id="datosProfesor"></p>
+    <!-- 🔷 HEADER -->
+    <div style="
+      background: linear-gradient(135deg, #1e88e5, #42a5f5);
+      color:white;
+      padding:20px;
+      text-align:center;
+      border-bottom-left-radius:20px;
+      border-bottom-right-radius:20px;
+      box-shadow:0 4px 10px rgba(0,0,0,0.2);
+    ">
+      <h2 style="margin:0;">REPORTE</h2>
+      <p id="datosProfesor" style="margin:5px 0;"></p>
 
-          <button onclick="logout()" style="
-            margin-top:10px;
-            background:white;
-            color:#1e88e5;
-            border:none;
-            padding:8px 15px;
-            border-radius:20px;
-          ">
-            Cerrar sesión
-          </button>
-        </div>
+      <button onclick="logout()" style="
+        background:white;
+        color:#1e88e5;
+        border:none;
+        padding:8px 15px;
+        border-radius:20px;
+        margin-top:10px;
+        font-size:13px;
+      ">
+        Cerrar sesión
+      </button>
+    </div>
 
-        <div class="page-content">
+    <!-- 🔘 BOTONES FIJOS -->
+    <div style="
+      position: sticky;
+      top: 0;
+      background:#f5f7fa;
+      padding:15px;
+      z-index:10;
+      display:flex;
+      gap:10px;
+    ">
+      <button onclick="mostrarNotas()" style="
+        flex:1;
+        padding:12px;
+        border:none;
+        border-radius:12px;
+        background:#2196f3;
+        color:white;
+        font-weight:bold;
+      ">📘 Notas</button>
 
-          <!-- BOTONES -->
-          <div style="text-align:center;">
-            <button onclick="mostrarNotas()" style="
-              margin:10px;
-              padding:10px 20px;
-              border:none;
-              border-radius:20px;
-              background:#2196f3;
-              color:white;
-            ">Notas</button>
+      <button onclick="mostrarDisciplina()" style="
+        flex:1;
+        padding:12px;
+        border:none;
+        border-radius:12px;
+        background:#ff7043;
+        color:white;
+        font-weight:bold;
+      ">⚠️ Disciplina</button>
+    </div>
 
-            <button onclick="mostrarDisciplina()" style="
-              margin:10px;
-              padding:10px 20px;
-              border:none;
-              border-radius:20px;
-              background:#f44336;
-              color:white;
-            ">Disciplina</button>
-          </div>
+    <!-- 📄 CONTENIDO SCROLL -->
+    <div class="page-content" style="
+      padding:15px;
+      padding-bottom:80px; /* 🔥 IMPORTANTE: espacio final */
+      background:#f5f7fa;
+    ">
 
-          <!-- NOTAS -->
-          <div id="seccionNotas">
-            <h3 style="padding-left:15px;">Académico</h3>
-            <div id="notas"></div>
-          </div>
-
-          <!-- DISCIPLINA -->
-          <div id="seccionDisciplina" style="display:none;">
-            <h3 style="padding-left:15px;">Disciplina</h3>
-            <div id="disciplina"></div>
-          </div>
-
-        </div>
+      <div id="seccionNotas">
+        <h3 style="margin-bottom:10px;">📘 Académico</h3>
+        <div id="notas"></div>
       </div>
-      `
-    }
 
+      <div id="seccionDisciplina" style="display:none;">
+        <h3 style="margin-bottom:10px;">⚠️ Disciplina</h3>
+        <div id="disciplina"></div>
+      </div>
+
+    </div>
+  </div>
+  `
+}
   ]
 });
 
