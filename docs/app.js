@@ -254,9 +254,9 @@ function mostrarDisciplina(){
         box-shadow:0 5px 10px rgba(0,0,0,0.1);
       ">
 
-        <div style="font-size:13px;color:#888;margin-bottom:5px;">
-          📅 ${fecha}
-        </div>
+      <div style="font-size:13px;color:#0d47a1;margin-bottom:5px;font-weight:bold;">
+  📅 ${fecha}
+</div>
 
         <div style="font-size:15px;">
           ${texto}
