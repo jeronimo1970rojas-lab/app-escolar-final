@@ -195,7 +195,14 @@ function cargarPanel(){
 
 // NOTAS (2 COLUMNAS)
 function mostrarNotas(){
-  var html = '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">';
+
+  var html = `
+  <div style="
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+  ">
+  `;
 
   datosGlobal.notas.forEach(n => {
     html += `
@@ -208,10 +215,11 @@ function mostrarNotas(){
     ">
       <b>${n.materia}</b><br>
       <span style="font-size:20px;color:#2196f3;">${n.nota}</span>
-    </div>`;
+    </div>
+    `;
   });
 
-  html += "</div>";
+  html += `</div>`; // 🔴 ESTO ES CLAVE (cerrar el grid)
 
   document.getElementById("contenido").innerHTML = html;
 }
