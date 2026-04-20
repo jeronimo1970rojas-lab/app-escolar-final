@@ -161,7 +161,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 // URL GOOGLE SCRIPT
-var url = "https://script.google.com/macros/s/AKfycbzrLnz5ZT09kydDbgKmhQd0m-qGJluleSJl9qHX-QBwX6ls97ebpj0UJAFf9OSHaRtC/exec";
+var url = "https://script.google.com/macros/s/AKfycbzEQjNBEp7JAs2bjAstHTFP_KdLrVA4Z3h2G2HYVhf0dNMIEVCPpAZ4xflOZC1plZEy/exec";
 
 // DATOS GLOBAL
 var datosGlobal = null;
