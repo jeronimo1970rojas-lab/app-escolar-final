@@ -218,23 +218,42 @@ function mostrarNotas(){
 
 // DISCIPLINA
 function mostrarDisciplina(){
+
   var html = "";
 
-  datosGlobal.disciplina.forEach(d => {
-    html += `
-    <div style="
-      background:white;
-      margin:10px 0;
-      padding:15px;
-      border-radius:15px;
-    ">
-      ${d}
-    </div>`;
-  });
+  if (!datosGlobal.disciplina || datosGlobal.disciplina.length === 0) {
+    html = `
+      <div style="
+        text-align:center;
+        margin-top:20px;
+        color:#777;
+      ">
+        No hay registros de disciplina
+      </div>
+    `;
+  } else {
+
+    datosGlobal.disciplina.forEach(d => {
+
+      html += `
+      <div style="
+        background:white;
+        margin:10px 0;
+        padding:15px;
+        border-radius:15px;
+        box-shadow:0 5px 10px rgba(0,0,0,0.1);
+      ">
+        <b>📅 ${d.fecha || ''}</b><br><br>
+        ${d.detalle || ''}
+      </div>
+      `;
+
+    });
+
+  }
 
   document.getElementById("contenido").innerHTML = html;
 }
-
 // LOGOUT
 function logout(){
   datosGlobal = null;
