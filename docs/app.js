@@ -1,70 +1,39 @@
-// 🔵 APP
+// APP
 var app = new Framework7({
   el: '#app',
   name: 'App Escolar',
-  id: 'com.app.escolar',
 
   routes: [
 
-    // 🔵 INICIO
+    // INICIO
     {
       path: '/inicio/',
       content: `
       <div class="page">
-        <div class="page-content" style="
-          display:flex;
-          flex-direction:column;
-          justify-content:center;
-          align-items:center;
-          height:100vh;
-          text-align:center;
-          background: linear-gradient(135deg, #1e88e5, #42a5f5);
-          color:white;
-        ">
-          <img src="logo.png" style="width:120px; border-radius:20px; margin-bottom:20px;">
-          <h1>Colegio Británico</h1>
-          <p>Cargando aplicación...</p>
+        <div class="page-content" style="display:flex;justify-content:center;align-items:center;height:100vh;background:#2196f3;color:white;flex-direction:column;">
+          <h2>Colegio Británico</h2>
+          <p>Cargando...</p>
         </div>
       </div>
       `,
       on: {
-        pageAfterIn: function () {
-          setTimeout(() => mainView.router.navigate('/info/'), 2000);
-        }
+        pageAfterIn: () => setTimeout(() => mainView.router.navigate('/login/'), 2000)
       }
     },
 
-    // 🟡 INFO
-    {
-      path: '/info/',
-      content: `
-      <div class="page">
-        <div class="page-content" style="padding:20px; text-align:center;">
-          <h2>Información</h2>
-          <div id="avisos"></div>
-          <button onclick="irLogin()" style="
-            background:#2196f3;color:white;padding:12px;border:none;border-radius:20px;
-          ">Ingresar</button>
-        </div>
-      </div>
-      `,
-      on: { pageAfterIn: cargarAvisos }
-    },
-
-    // 🟢 LOGIN
+    // LOGIN
     {
       path: '/login/',
       content: `
       <div class="page">
-        <div class="page-content" style="
-          display:flex;justify-content:center;align-items:center;height:100vh;
-          background: linear-gradient(135deg, #1e88e5, #42a5f5);
-        ">
-          <div style="background:white;padding:25px;border-radius:20px;width:90%;max-width:350px;text-align:center;">
+        <div class="page-content" style="display:flex;justify-content:center;align-items:center;height:100vh;background:#2196f3;">
+          <div style="background:white;padding:20px;border-radius:15px;width:90%;max-width:300px;text-align:center;">
             <h2>Login</h2>
+
             <input id="usuario" placeholder="Usuario" style="width:100%;padding:10px;margin:10px 0;">
             <input id="password" type="password" placeholder="Contraseña" style="width:100%;padding:10px;margin:10px 0;">
-            <button onclick="login()" style="width:100%;background:#2196f3;color:white;padding:12px;border:none;border-radius:20px;">
+
+            <button onclick="login()" style="width:100%;background:#2196f3;color:white;padding:10px;border:none;border-radius:10px;">
               Ingresar
             </button>
           </div>
@@ -73,37 +42,22 @@ var app = new Framework7({
       `
     },
 
-    // 🔴 PANEL PRO
+    // PANEL
     {
       path: '/panel/',
       content: `
       <div class="page">
 
-        <!-- HEADER -->
-        <div style="background:#2196f3;color:white;padding:20px;text-align:center;">
-          <h2>REPORTE</h2>
-          <p id="datosProfesor"></p>
-          <button onclick="logout()" style="background:white;color:#2196f3;border:none;padding:8px 15px;border-radius:20px;">
+        <div style="background:#2196f3;color:white;padding:15px;text-align:center;">
+          <h2>Panel</h2>
+          <p id="datos"></p>
+          <button onclick="logout()" style="background:white;color:#2196f3;border:none;padding:5px 10px;border-radius:10px;">
             Salir
           </button>
         </div>
 
-        <!-- BOTONES -->
-        <div style="position:sticky;top:0;background:#fff;padding:10px;display:flex;gap:10px;">
-          <button onclick="mostrarNotas()" style="flex:1;background:#2196f3;color:white;padding:10px;border:none;border-radius:10px;">Notas</button>
-          <button onclick="mostrarDisciplina()" style="flex:1;background:#ff7043;color:white;padding:10px;border:none;border-radius:10px;">Disciplina</button>
-        </div>
-
-        <!-- CONTENIDO -->
-        <div class="page-content" style="padding:10px;padding-bottom:100px;">
-          <div id="seccionNotas"></div>
-          <div id="seccionDisciplina" style="display:none;"></div>
-        </div>
-
-        <!-- MENÚ INFERIOR -->
-        <div style="position:fixed;bottom:0;width:100%;background:white;display:flex;border-top:1px solid #ccc;">
-          <button onclick="mostrarNotas()" style="flex:1;padding:10px;">📘</button>
-          <button onclick="mostrarDisciplina()" style="flex:1;padding:10px;">⚠️</button>
+        <div class="page-content" style="padding:10px;">
+          <div id="contenido"></div>
         </div>
 
       </div>
@@ -113,99 +67,62 @@ var app = new Framework7({
   ]
 });
 
-// 📱 VIEW
+// VIEW
 var mainView = app.views.create('.view-main');
 
-// 🚀 INICIO
-document.addEventListener("DOMContentLoaded", () => {
+// INICIO
+document.addEventListener("DOMContentLoaded", function () {
   mainView.router.navigate('/inicio/');
 });
 
-// 🔗 URL (TUYA)
+// 🔴 IMPORTANTE: TU URL REAL
 var url = "https://script.google.com/macros/s/AKfycbwANmpVoK2Y-WTBQzlISkMzQIgE73FJ9GpwBY8vlpnxSU5fuPIZOBNJOvDJ06S0VLZQ/exec";
 
 // FUNCIONES
-function irLogin(){ mainView.router.navigate('/login/'); }
-function logout(){ mainView.router.navigate('/login/'); }
-
-function mostrarNotas(){
-  document.getElementById("seccionNotas").style.display="block";
-  document.getElementById("seccionDisciplina").style.display="none";
-}
-
-function mostrarDisciplina(){
-  document.getElementById("seccionNotas").style.display="none";
-  document.getElementById("seccionDisciplina").style.display="block";
+function logout(){
+  mainView.router.navigate('/login/');
 }
 
 // LOGIN
 function login(){
-  var u=document.getElementById("usuario").value;
-  var p=document.getElementById("password").value;
+  var usuario = document.getElementById("usuario").value;
+  var password = document.getElementById("password").value;
 
-  if(!u || !p){
-    alert("Ingrese datos");
-    return;
-  }
+  fetch(url + "?usuario=" + usuario + "&password=" + password)
+    .then(res => res.text())
+    .then(text => {
+      try {
+        var data = JSON.parse(text);
 
-  fetch(url+"?usuario="+u+"&password="+p)
-  .then(r=>r.text())
-  .then(t=>{
-    try{
-      var data=JSON.parse(t);
+        if (data.status === "ok") {
+          mainView.router.navigate('/panel/');
+          setTimeout(() => cargarDatos(data), 300);
+        } else {
+          alert("Usuario incorrecto");
+        }
 
-      if(data.status==="ok"){
-        mainView.router.navigate('/panel/');
-        setTimeout(()=>cargarDatos(data),500);
-      }else{
-        alert("Datos incorrectos");
+      } catch {
+        alert("Error del servidor");
       }
-
-    }catch{
-      alert("Error servidor (404 o script mal)");
-    }
-  })
-  .catch(()=>alert("Sin conexión"));
+    })
+    .catch(() => alert("Error de conexión"));
 }
 
-// DATOS
+// CARGAR DATOS
 function cargarDatos(data){
 
-  document.getElementById("datosProfesor").innerHTML="Estudiante: "+data.nombre;
+  document.getElementById("datos").innerHTML =
+    "Alumno: " + data.nombre;
 
-  let notas="";
-  data.notas.forEach(n=>{
-    notas+=`
-    <div style="background:white;margin:10px;padding:15px;border-radius:15px;box-shadow:0 3px 10px rgba(0,0,0,0.1);">
-      <b>${n.materia}</b><br>Nota: ${n.nota}
+  var html = "";
+
+  data.notas.forEach(n => {
+    html += `
+    <div style="background:white;margin:10px;padding:15px;border-radius:10px;">
+      <b>${n.materia}</b><br>
+      Nota: ${n.nota}
     </div>`;
   });
 
-  document.getElementById("seccionNotas").innerHTML=notas;
-
-  let disc="";
-  data.disciplina.forEach(d=>{
-    disc+=`
-    <div style="background:#ffeaea;margin:10px;padding:15px;border-radius:15px;">
-      ⚠️ ${d.detalle}
-    </div>`;
-  });
-
-  document.getElementById("seccionDisciplina").innerHTML=disc;
-}
-
-// AVISOS
-function cargarAvisos(){
-  fetch(url+"?accion=avisos")
-  .then(r=>r.text())
-  .then(t=>{
-    try{
-      var data=JSON.parse(t);
-      let html="";
-      data.forEach(a=>{
-        html+=`<div style="background:#fff3cd;margin:10px;padding:10px;border-radius:10px;">${a.mensaje}</div>`;
-      });
-      document.getElementById("avisos").innerHTML=html;
-    }catch{}
-  });
+  document.getElementById("contenido").innerHTML = html;
 }
