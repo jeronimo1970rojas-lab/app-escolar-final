@@ -196,34 +196,40 @@ function cargarPanel(){
 // NOTAS (2 COLUMNAS)
 function mostrarNotas(){
 
-  var html = `
-  <div style="
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:10px;
-  ">
-  `;
+  var html = "";
 
   datosGlobal.notas.forEach(n => {
     html += `
     <div style="
       background:white;
-      padding:15px;
+      margin:10px 0;
+      padding:18px;
       border-radius:15px;
-      text-align:center;
-      box-shadow:0 5px 10px rgba(0,0,0,0.1);
+      box-shadow:0 5px 15px rgba(0,0,0,0.15);
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
     ">
-      <b>${n.materia}</b><br>
-      <span style="font-size:20px;color:#2196f3;">${n.nota}</span>
+      <div>
+        <b style="font-size:14px;">${n.materia}</b>
+      </div>
+
+      <div style="
+        background:#2196f3;
+        color:white;
+        padding:6px 12px;
+        border-radius:12px;
+        font-size:16px;
+        font-weight:bold;
+      ">
+        ${n.nota}
+      </div>
     </div>
     `;
   });
 
-  html += `</div>`; // 🔴 ESTO ES CLAVE (cerrar el grid)
-
   document.getElementById("contenido").innerHTML = html;
 }
-
 // DISCIPLINA
 function mostrarDisciplina(){
 
