@@ -230,18 +230,14 @@ function mostrarDisciplina(){
   var html = "";
 
   if (!datosGlobal.disciplina || datosGlobal.disciplina.length === 0) {
-    html = `
-      <div style="
-        text-align:center;
-        margin-top:20px;
-        color:#777;
-      ">
-        No hay registros de disciplina
-      </div>
-    `;
+    html = `<div style="text-align:center;color:#777;">Sin registros</div>`;
   } else {
 
     datosGlobal.disciplina.forEach(d => {
+
+      // Detecta automáticamente campos
+      var fecha = d.fecha || d.Fecha || d.date || "";
+      var texto = d.detalle || d.descripcion || d.mensaje || d.observacion || "";
 
       html += `
       <div style="
@@ -251,11 +247,10 @@ function mostrarDisciplina(){
         border-radius:15px;
         box-shadow:0 5px 10px rgba(0,0,0,0.1);
       ">
-        <b>📅 ${d.fecha || ''}</b><br><br>
-        ${d.detalle || ''}
+        ${fecha ? `<b>📅 ${fecha}</b><br><br>` : ""}
+        ${texto}
       </div>
       `;
-
     });
 
   }
