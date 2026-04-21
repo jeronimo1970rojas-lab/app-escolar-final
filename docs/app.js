@@ -255,3 +255,38 @@ function logout(){
   datosGlobal = null;
   mainView.router.navigate('/login/');
 }
+function cargarAvisos(){
+
+  fetch(url + "?accion=avisos")
+    .then(res => res.text())
+    .then(text => {
+      var data = JSON.parse(text);
+
+      var html = "";
+
+      if (!data || data.length === 0) {
+        html = "<div style='text-align:center;color:#777;'>Sin avisos</div>";
+      } else {
+
+        data.forEach(a => {
+          html += `
+          <div style="
+            background:white;
+            margin:10px 0;
+            padding:15px;
+            border-radius:15px;
+            box-shadow:0 5px 10px rgba(0,0,0,0.1);
+          ">
+            ${a.mensaje}
+          </div>
+          `;
+        });
+
+      }
+
+      document.getElementById("avisos").innerHTML = html;
+    })
+    .catch(() => {
+      document.getElementById("avisos").innerHTML = "Error al cargar avisos";
+    });
+}
