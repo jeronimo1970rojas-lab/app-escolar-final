@@ -47,25 +47,33 @@ var app = new Framework7({
    {
   path: '/info/',
   content: `
-  <div class="page">
-    <div class="page-content" style="padding:20px;">
+<div class="page">
+  <div class="page-content" style="padding:20px;">
 
-      <h2 style="text-align:center;">Avisos</h2>
+    <h2 style="text-align:center;">Avisos</h2>
 
-      <div id="avisos"></div>
+    <div id="avisos"></div>
 
-    </div>
+    <button onclick="irLogin()" style="
+      margin-top:20px;
+      width:100%;
+      padding:12px;
+      background:#2196f3;
+      color:white;
+      border:none;
+      border-radius:20px;
+    ">
+      Continuar
+    </button>
+
   </div>
-  `,
-  on: {
-    pageAfterIn: () => {
-      cargarAvisos(); // 🔥 ESTO ES CLAVE
-
-      setTimeout(() => {
-        mainView.router.navigate('/login/');
-      }, 3000);
-    }
+</div>
+`,
+on: {
+  pageAfterIn: () => {
+    cargarAvisos();
   }
+}
 },
     // 🟩 LOGIN
     {
