@@ -107,7 +107,7 @@ var app = new Framework7({
 
     }
   }
-}
+},
     // 🟩 LOGIN
     {
       path: '/login/',
