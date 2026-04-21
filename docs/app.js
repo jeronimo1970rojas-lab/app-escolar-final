@@ -3,68 +3,85 @@ var app = new Framework7({
   name: 'App Escolar',
 
   routes: [
+
+    // 🟦 INICIO
     {
-  path: '/',
-  content: `
-  <div class="page">
-
-    <div style="
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-      align-items:center;
-      height:100vh;
-      text-align:center;
-      background:linear-gradient(135deg,#2196f3,#21cbf3);
-      color:white;
-    ">
-
-      <h1 style="margin-bottom:10px;">📚 App Escolar</h1>
-      <p style="margin-bottom:30px;">Bienvenido</p>
-
-      <button onclick="irLogin()" style="
-        padding:15px 30px;
-        border:none;
-        border-radius:25px;
-        background:white;
-        color:#2196f3;
-        font-size:16px;
-        font-weight:bold;
-      ">
-        Ingresar
-      </button>
-
-    </div>
-
-  </div>
-  `
-},
-
-    // 🟦 INICIO (SPLASH)
-    {
-      path: '/inicio/',
+      path: '/',
       content: `
       <div class="page">
-        <div class="page-content" style="
+        <div style="
           display:flex;
+          flex-direction:column;
           justify-content:center;
           align-items:center;
           height:100vh;
-          background: linear-gradient(135deg, #2196f3, #21cbf3);
+          background:linear-gradient(135deg,#2196f3,#21cbf3);
           color:white;
-          flex-direction:column;
+          text-align:center;
         ">
-          <h1 style="font-size:28px;">Colegio Británico</h1>
-          <p>Cargando...</p>
+
+          <img src="logo.png" style="width:120px;margin-bottom:20px;">
+
+          <h1>Colegio Británico</h1>
+          <p>Bienvenido</p>
+
+          <button onclick="irInfo()" style="
+            margin-top:30px;
+            padding:15px 30px;
+            border:none;
+            border-radius:25px;
+            background:white;
+            color:#2196f3;
+            font-weight:bold;
+          ">
+            Continuar
+          </button>
+
         </div>
       </div>
-      `,
-      on: {
-        pageAfterIn: () => setTimeout(() => mainView.router.navigate('/login/'), 2500)
-      }
+      `
     },
 
-    // 🟩 LOGIN PRO
+    // 🟨 INFORMACIÓN GENERAL
+    {
+      path: '/info/',
+      content: `
+      <div class="page">
+
+        <div style="
+          padding:20px;
+          text-align:center;
+        ">
+
+          <h2>Información</h2>
+
+          <img src="profesor.png" style="
+            width:120px;
+            border-radius:50%;
+            margin:15px 0;
+          ">
+
+          <p>Bienvenido al sistema escolar.</p>
+          <p>Aquí podrás ver notas y disciplina.</p>
+
+          <button onclick="irLogin()" style="
+            margin-top:20px;
+            padding:12px 25px;
+            border:none;
+            border-radius:20px;
+            background:#2196f3;
+            color:white;
+          ">
+            Ir a Login
+          </button>
+
+        </div>
+
+      </div>
+      `
+    },
+
+    // 🟩 LOGIN
     {
       path: '/login/',
       content: `
@@ -84,35 +101,20 @@ var app = new Framework7({
             width:90%;
             max-width:320px;
             text-align:center;
-            box-shadow:0 10px 25px rgba(0,0,0,0.2);
           ">
 
             <h2>Login</h2>
 
-            <input id="usuario" placeholder="Usuario" style="
-              width:100%;
-              padding:12px;
-              margin:10px 0;
-              border-radius:10px;
-              border:1px solid #ccc;
-            ">
-
-            <input id="password" type="password" placeholder="Contraseña" style="
-              width:100%;
-              padding:12px;
-              margin:10px 0;
-              border-radius:10px;
-              border:1px solid #ccc;
-            ">
+            <input id="usuario" placeholder="Usuario"><br><br>
+            <input id="password" type="password" placeholder="Contraseña"><br><br>
 
             <button onclick="login()" style="
               width:100%;
-              background: linear-gradient(135deg, #2196f3, #21cbf3);
-              border:none;
+              background:#2196f3;
               color:white;
               padding:12px;
-              border-radius:25px;
-              font-size:16px;
+              border:none;
+              border-radius:20px;
             ">
               Ingresar
             </button>
@@ -123,13 +125,12 @@ var app = new Framework7({
       `
     },
 
-    // 🟨 PANEL PRO
+    // 🟧 PANEL
     {
       path: '/panel/',
       content: `
       <div class="page">
 
-        <!-- HEADER -->
         <div style="
           background:#2196f3;
           color:white;
@@ -137,46 +138,22 @@ var app = new Framework7({
           text-align:center;
         ">
           <h3 id="nombreAlumno"></h3>
-          <button onclick="logout()" style="
-            background:white;
-            color:#2196f3;
-            border:none;
-            padding:5px 10px;
-            border-radius:10px;
-          ">
-            Salir
-          </button>
+          <button onclick="logout()">Salir</button>
         </div>
 
-        <!-- BOTONES FIJOS -->
         <div style="
           position:sticky;
           top:0;
           background:#f5f5f5;
           padding:10px;
-          z-index:10;
           display:grid;
           grid-template-columns:1fr 1fr;
           gap:10px;
         ">
-          <button onclick="mostrarNotas()" style="
-            padding:12px;
-            border:none;
-            border-radius:15px;
-            background:#4caf50;
-            color:white;
-          ">Notas</button>
-
-          <button onclick="mostrarDisciplina()" style="
-            padding:12px;
-            border:none;
-            border-radius:15px;
-            background:#ff9800;
-            color:white;
-          ">Disciplina</button>
+          <button onclick="mostrarNotas()">Notas</button>
+          <button onclick="mostrarDisciplina()">Disciplina</button>
         </div>
 
-        <!-- CONTENIDO -->
         <div class="page-content" style="padding:10px;">
           <div id="contenido"></div>
         </div>
@@ -188,21 +165,29 @@ var app = new Framework7({
   ]
 });
 
-// VIEW
+// VIEW (SIN ERRORES)
 var mainView = app.views.create('.view-main');
+
+// INICIO NORMAL
 app.views.main.router.navigate('/');
 
 
-// INICIO
-document.addEventListener("DOMContentLoaded", function () {
+// 🔁 FUNCIONES DE NAVEGACIÓN
+function irInfo(){
+  mainView.router.navigate('/info/');
+}
 
-});
+function irLogin(){
+  mainView.router.navigate('/login/');
+}
 
-// URL GOOGLE SCRIPT
+
+// 🔗 URL
 var url = "https://script.google.com/macros/s/AKfycbzEQjNBEp7JAs2bjAstHTFP_KdLrVA4Z3h2G2HYVhf0dNMIEVCPpAZ4xflOZC1plZEy/exec";
 
-// DATOS GLOBAL
+// DATOS
 var datosGlobal = null;
+
 
 // LOGIN
 function login(){
@@ -225,94 +210,49 @@ function login(){
     .catch(() => alert("Error conexión"));
 }
 
+
 // PANEL
 function cargarPanel(){
   document.getElementById("nombreAlumno").innerHTML = datosGlobal.nombre;
   mostrarNotas();
 }
 
-// NOTAS (2 COLUMNAS)
-function mostrarNotas(){
 
+// NOTAS
+function mostrarNotas(){
   var html = "";
 
   datosGlobal.notas.forEach(n => {
     html += `
-    <div style="
-      background:white;
-      margin:10px 0;
-      padding:18px;
-      border-radius:15px;
-      box-shadow:0 5px 15px rgba(0,0,0,0.15);
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-    ">
-      <div>
-        <b style="font-size:14px;">${n.materia}</b>
-      </div>
-
-      <div style="
-        background:#2196f3;
-        color:white;
-        padding:6px 12px;
-        border-radius:12px;
-        font-size:16px;
-        font-weight:bold;
-      ">
-        ${n.nota}
-      </div>
+    <div style="background:white;margin:10px 0;padding:15px;border-radius:15px;">
+      <b>${n.materia}</b> - ${n.nota}
     </div>
     `;
   });
 
   document.getElementById("contenido").innerHTML = html;
 }
+
+
 // DISCIPLINA
 function mostrarDisciplina(){
-
   var html = "";
 
-  if (!datosGlobal.disciplina || datosGlobal.disciplina.length === 0) {
-    html = `<div style="text-align:center;color:#777;">Sin registros</div>`;
-  } else {
-
-    datosGlobal.disciplina.forEach(d => {
-
-      // 🔍 Detectar campos reales
-      var fecha = d.fecha || d.Fecha || d.date || d.dia || "";
-      var texto = d.detalle || d.descripcion || d.mensaje || d.observacion || "";
-
-      html += `
-      <div style="
-        background:white;
-        margin:10px 0;
-        padding:15px;
-        border-radius:15px;
-        box-shadow:0 5px 10px rgba(0,0,0,0.1);
-      ">
-
-     <div style="font-size:13px;color:#0d47a1;margin-bottom:5px;font-weight:bold;">
-  📅 ${fecha}
-</div>
-
-        <div style="font-size:15px;">
-          ${texto}
-        </div>
-
-      </div>
-      `;
-    });
-
-  }
+  datosGlobal.disciplina.forEach(d => {
+    html += `
+    <div style="background:white;margin:10px 0;padding:15px;border-radius:15px;">
+      <div style="color:#0d47a1;font-weight:bold;">📅 ${d.fecha}</div>
+      <div>${d.detalle}</div>
+    </div>
+    `;
+  });
 
   document.getElementById("contenido").innerHTML = html;
 }
+
+
 // LOGOUT
 function logout(){
   datosGlobal = null;
   mainView.router.navigate('/login/');
-}
-function irLogin(){
-  app.views.main.router.navigate('/login/');
 }
