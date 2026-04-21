@@ -290,3 +290,6 @@ function cargarAvisos(){
       document.getElementById("avisos").innerHTML = "Error al cargar avisos";
     });
 }
+function irLogin(){
+  mainView.router.navigate('/login/');
+}
