@@ -3,6 +3,42 @@ var app = new Framework7({
   name: 'App Escolar',
 
   routes: [
+    {
+  path: '/',
+  content: `
+  <div class="page">
+
+    <div style="
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      height:100vh;
+      text-align:center;
+      background:linear-gradient(135deg,#2196f3,#21cbf3);
+      color:white;
+    ">
+
+      <h1 style="margin-bottom:10px;">📚 App Escolar</h1>
+      <p style="margin-bottom:30px;">Bienvenido</p>
+
+      <button onclick="irLogin()" style="
+        padding:15px 30px;
+        border:none;
+        border-radius:25px;
+        background:white;
+        color:#2196f3;
+        font-size:16px;
+        font-weight:bold;
+      ">
+        Ingresar
+      </button>
+
+    </div>
+
+  </div>
+  `
+},
 
     // 🟦 INICIO (SPLASH)
     {
@@ -274,4 +310,7 @@ function mostrarDisciplina(){
 function logout(){
   datosGlobal = null;
   mainView.router.navigate('/login/');
+}
+function irLogin(){
+  app.views.main.router.navigate('/login/');
 }
