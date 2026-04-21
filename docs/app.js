@@ -171,7 +171,7 @@ app.views.main.router.navigate('/');
 
 
 // 🔗 GOOGLE SCRIPT
-var url = "https://script.google.com/macros/s/AKfycbzEQjNBEp7JAs2bjAstHTFP_KdLrVA4Z3h2G2HYVhf0dNMIEVCPpAZ4xflOZC1plZEy/exec";
+var url = "https://script.google.com/macros/s/AKfycbxHdcr-L7vUGnyuXFzQnRNPcsR8J2T2BYxWqypLbFCJfiuGnJQPXjFCACYDJzaYf8iM/exec";
 
 var datosGlobal = null;
 
