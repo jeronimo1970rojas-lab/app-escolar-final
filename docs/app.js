@@ -44,21 +44,33 @@ var app = new Framework7({
     },
 
     // 🟨 PANTALLA 2 - INFORMACIÓN
- {
+{
   path: '/info/',
   content: `
   <div class="page">
 
-    <!-- CONTENIDO SCROLL -->
-    <div class="page-content" style="padding:20px; padding-bottom:80px;">
-
-      <h2 style="text-align:center;">📢 Avisos</h2>
-
-      <div id="avisos"></div>
-
+    <!-- 🔵 HEADER FIJO (FUERA DEL SCROLL) -->
+    <div style="
+      position:fixed;
+      top:0;
+      width:100%;
+      background:#2196f3;
+      color:white;
+      text-align:center;
+      padding:15px;
+      z-index:10;
+    ">
+      <h3 style="margin:0;">📢 Avisos</h3>
     </div>
 
-    <!-- BOTÓN FIJO -->
+    <!-- 🟡 CONTENIDO CON SCROLL -->
+    <div class="page-content" style="
+      padding:80px 15px 90px 15px;
+    ">
+      <div id="avisos"></div>
+    </div>
+
+    <!-- 🟢 BOTÓN FIJO ABAJO -->
     <div style="
       position:fixed;
       bottom:0;
@@ -66,8 +78,9 @@ var app = new Framework7({
       background:white;
       padding:10px;
       box-shadow:0 -2px 10px rgba(0,0,0,0.1);
+      z-index:10;
     ">
-      <button onclick="irLogin()" style="
+      <button id="btnContinuar" style="
         width:100%;
         padding:15px;
         background:#2196f3;
@@ -84,10 +97,17 @@ var app = new Framework7({
   `,
   on: {
     pageAfterIn: () => {
+
       cargarAvisos();
+
+      // 🔥 AQUÍ ESTABA EL PROBLEMA
+      document.getElementById("btnContinuar").onclick = function(){
+        mainView.router.navigate('/login/');
+      };
+
     }
   }
-},
+}
     // 🟩 LOGIN
     {
       path: '/login/',
