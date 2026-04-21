@@ -189,10 +189,9 @@ var app = new Framework7({
 });
 
 // VIEW
-var mainView = app.views.create('.view-main', {
-  url: '/'
-});
-mainView.router.navigate('/');
+var mainView = app.views.create('.view-main');
+app.views.main.router.navigate('/');
+
 
 // INICIO
 document.addEventListener("DOMContentLoaded", function () {
