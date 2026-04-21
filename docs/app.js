@@ -195,7 +195,7 @@ var mainView = app.views.create('.view-main', {
 mainView.router.navigate('/');
 
 // INICIO
-//document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function () {
 
 });
 
