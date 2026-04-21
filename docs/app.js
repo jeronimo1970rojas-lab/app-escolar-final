@@ -66,7 +66,7 @@ var app = new Framework7({
       }, 3000);
     }
   }
-}
+},
     // 🟩 LOGIN
     {
       path: '/login/',
