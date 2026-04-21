@@ -193,7 +193,7 @@ var mainView = app.views.create('.view-main');
 
 // INICIO
 document.addEventListener("DOMContentLoaded", function () {
-  mainView.router.navigate('/inicio/');
+
 });
 
 // URL GOOGLE SCRIPT
