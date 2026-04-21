@@ -44,37 +44,29 @@ var app = new Framework7({
     },
 
     // 🟨 PANTALLA 2 - INFORMACIÓN
-    {
-      path: '/info/',
-      content: `
-      <div class="page">
-        <div class="page-content" style="
-          display:flex;
-          flex-direction:column;
-          justify-content:center;
-          align-items:center;
-          height:100vh;
-          text-align:center;
-          padding:20px;
-        ">
+   {
+  path: '/info/',
+  content: `
+  <div class="page">
+    <div class="page-content" style="padding:20px;">
 
-          <h2>Información General</h2>
+      <h2 style="text-align:center;">Avisos</h2>
 
-          <p>Bienvenido al sistema del Colegio Británico.</p>
-          <p>Aquí podrás revisar notas y disciplina.</p>
+      <div id="avisos"></div>
 
-        </div>
-      </div>
-      `,
-      on: {
-        pageAfterIn: () => {
-          setTimeout(() => {
-            mainView.router.navigate('/login/');
-          }, 2500);
-        }
-      }
-    },
+    </div>
+  </div>
+  `,
+  on: {
+    pageAfterIn: () => {
+      cargarAvisos(); // 🔥 ESTO ES CLAVE
 
+      setTimeout(() => {
+        mainView.router.navigate('/login/');
+      }, 3000);
+    }
+  }
+}
     // 🟩 LOGIN
     {
       path: '/login/',
