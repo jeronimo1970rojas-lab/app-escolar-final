@@ -44,36 +44,49 @@ var app = new Framework7({
     },
 
     // 🟨 PANTALLA 2 - INFORMACIÓN
-   {
+ {
   path: '/info/',
   content: `
-<div class="page">
-  <div class="page-content" style="padding:20px;">
+  <div class="page">
 
-    <h2 style="text-align:center;">Avisos</h2>
+    <!-- CONTENIDO SCROLL -->
+    <div class="page-content" style="padding:20px; padding-bottom:80px;">
 
-    <div id="avisos"></div>
+      <h2 style="text-align:center;">📢 Avisos</h2>
 
-    <button onclick="irLogin()" style="
-      margin-top:20px;
+      <div id="avisos"></div>
+
+    </div>
+
+    <!-- BOTÓN FIJO -->
+    <div style="
+      position:fixed;
+      bottom:0;
       width:100%;
-      padding:12px;
-      background:#2196f3;
-      color:white;
-      border:none;
-      border-radius:20px;
+      background:white;
+      padding:10px;
+      box-shadow:0 -2px 10px rgba(0,0,0,0.1);
     ">
-      Continuar
-    </button>
+      <button onclick="irLogin()" style="
+        width:100%;
+        padding:15px;
+        background:#2196f3;
+        color:white;
+        border:none;
+        border-radius:25px;
+        font-size:16px;
+      ">
+        Continuar
+      </button>
+    </div>
 
   </div>
-</div>
-`,
-on: {
-  pageAfterIn: () => {
-    cargarAvisos();
+  `,
+  on: {
+    pageAfterIn: () => {
+      cargarAvisos();
+    }
   }
-}
 },
     // 🟩 LOGIN
     {
@@ -179,7 +192,7 @@ app.views.main.router.navigate('/');
 
 
 // 🔗 GOOGLE SCRIPT
-var url = "https://script.google.com/macros/s/AKfycbxHdcr-L7vUGnyuXFzQnRNPcsR8J2T2BYxWqypLbFCJfiuGnJQPXjFCACYDJzaYf8iM/exec";
+var url = "https://script.google.com/macros/s/AKfycby6b0ORiFY5JPSgv1qKfJb4PZCqzZIiUw2znW5QOR7TbCe75TMwYEcDlQjumMRvt4fU/exec";
 
 var datosGlobal = null;
 
@@ -264,30 +277,45 @@ function cargarAvisos(){
 
       var html = "";
 
-      if (!data || data.length === 0) {
-        html = "<div style='text-align:center;color:#777;'>Sin avisos</div>";
-      } else {
+      data.forEach(a => {
 
-        data.forEach(a => {
-          html += `
+        // 🎨 COLOR SEGÚN TIPO
+        var color = "#2196f3"; // default azul
+
+        if (a.tipo == "urgente") color = "#f44336"; // rojo
+        if (a.tipo == "importante") color = "#ff9800"; // naranja
+        if (a.tipo == "info") color = "#4caf50"; // verde
+
+        html += `
+        <div style="
+          background:white;
+          margin:12px 0;
+          padding:15px;
+          border-radius:15px;
+          box-shadow:0 5px 10px rgba(0,0,0,0.1);
+          border-left:6px solid ${color};
+        ">
+
           <div style="
-            background:white;
-            margin:10px 0;
-            padding:15px;
-            border-radius:15px;
-            box-shadow:0 5px 10px rgba(0,0,0,0.1);
+            font-size:13px;
+            color:#555;
+            margin-bottom:5px;
+          ">
+            📅 ${a.fecha || ""}
+          </div>
+
+          <div style="
+            font-size:15px;
+            font-weight:500;
           ">
             ${a.mensaje}
           </div>
-          `;
-        });
 
-      }
+        </div>
+        `;
+      });
 
       document.getElementById("avisos").innerHTML = html;
-    })
-    .catch(() => {
-      document.getElementById("avisos").innerHTML = "Error al cargar avisos";
     });
 }
 function irLogin(){
