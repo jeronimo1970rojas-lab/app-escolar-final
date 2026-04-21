@@ -4,7 +4,7 @@ var app = new Framework7({
 
   routes: [
 
-    // 🟦 INICIO
+    // 🟦 PANTALLA 1 - BIENVENIDA
     {
       path: '/',
       content: `
@@ -21,64 +21,58 @@ var app = new Framework7({
         ">
 
           <img src="logo.png" style="width:120px;margin-bottom:20px;">
+          <h2>Bienvenido</h2>
 
-          <h1>Colegio Británico</h1>
-          <p>Bienvenido</p>
-
-          <button onclick="irInfo()" style="
-            margin-top:30px;
-            padding:15px 30px;
-            border:none;
-            border-radius:25px;
-            background:white;
-            color:#2196f3;
-            font-weight:bold;
-          ">
-            Continuar
-          </button>
-
-        </div>
-      </div>
-      `
-    },
-
-    // 🟨 INFORMACIÓN GENERAL
-    {
-      path: '/info/',
-      content: `
-      <div class="page">
-
-        <div style="
-          padding:20px;
-          text-align:center;
-        ">
-
-          <h2>Información</h2>
-
-          <img src="profesor.png" style="
+          <img src="profesor.jpg" style="
             width:120px;
             border-radius:50%;
             margin:15px 0;
           ">
 
-          <p>Bienvenido al sistema escolar.</p>
-          <p>Aquí podrás ver notas y disciplina.</p>
-
-          <button onclick="irLogin()" style="
-            margin-top:20px;
-            padding:12px 25px;
-            border:none;
-            border-radius:20px;
-            background:#2196f3;
-            color:white;
-          ">
-            Ir a Login
-          </button>
+          <p>Plataforma educativa</p>
 
         </div>
-
       </div>
-      `
+      `,
+      on: {
+        pageAfterIn: () => {
+          setTimeout(() => {
+            mainView.router.navigate('/info/');
+          }, 2500);
+        }
+      }
+    },
+
+    // 🟨 PANTALLA 2 - INFORMACIÓN
+    {
+      path: '/info/',
+      content: `
+      <div class="page">
+        <div class="page-content" style="
+          display:flex;
+          flex-direction:column;
+          justify-content:center;
+          align-items:center;
+          height:100vh;
+          text-align:center;
+          padding:20px;
+        ">
+
+          <h2>Información General</h2>
+
+          <p>Bienvenido al sistema del Colegio Británico.</p>
+          <p>Aquí podrás revisar notas y disciplina.</p>
+
+        </div>
+      </div>
+      `,
+      on: {
+        pageAfterIn: () => {
+          setTimeout(() => {
+            mainView.router.navigate('/login/');
+          }, 2500);
+        }
+      }
     },
 
     // 🟩 LOGIN
@@ -131,6 +125,7 @@ var app = new Framework7({
       content: `
       <div class="page">
 
+        <!-- HEADER -->
         <div style="
           background:#2196f3;
           color:white;
@@ -138,9 +133,18 @@ var app = new Framework7({
           text-align:center;
         ">
           <h3 id="nombreAlumno"></h3>
-          <button onclick="logout()">Salir</button>
+          <button onclick="logout()" style="
+            background:white;
+            color:#2196f3;
+            border:none;
+            padding:5px 10px;
+            border-radius:10px;
+          ">
+            Salir
+          </button>
         </div>
 
+        <!-- BOTONES FIJOS -->
         <div style="
           position:sticky;
           top:0;
@@ -154,6 +158,7 @@ var app = new Framework7({
           <button onclick="mostrarDisciplina()">Disciplina</button>
         </div>
 
+        <!-- CONTENIDO -->
         <div class="page-content" style="padding:10px;">
           <div id="contenido"></div>
         </div>
@@ -165,31 +170,21 @@ var app = new Framework7({
   ]
 });
 
-// VIEW (SIN ERRORES)
+
+// ✅ VIEW
 var mainView = app.views.create('.view-main');
 
-// INICIO NORMAL
+// ✅ INICIO
 app.views.main.router.navigate('/');
 
 
-// 🔁 FUNCIONES DE NAVEGACIÓN
-function irInfo(){
-  mainView.router.navigate('/info/');
-}
-
-function irLogin(){
-  mainView.router.navigate('/login/');
-}
-
-
-// 🔗 URL
+// 🔗 GOOGLE SCRIPT
 var url = "https://script.google.com/macros/s/AKfycbzEQjNBEp7JAs2bjAstHTFP_KdLrVA4Z3h2G2HYVhf0dNMIEVCPpAZ4xflOZC1plZEy/exec";
 
-// DATOS
 var datosGlobal = null;
 
 
-// LOGIN
+// 🔐 LOGIN
 function login(){
   var usuario = document.getElementById("usuario").value;
   var password = document.getElementById("password").value;
@@ -211,14 +206,14 @@ function login(){
 }
 
 
-// PANEL
+// 📊 PANEL
 function cargarPanel(){
   document.getElementById("nombreAlumno").innerHTML = datosGlobal.nombre;
   mostrarNotas();
 }
 
 
-// NOTAS
+// 📘 NOTAS
 function mostrarNotas(){
   var html = "";
 
@@ -234,24 +229,28 @@ function mostrarNotas(){
 }
 
 
-// DISCIPLINA
+// ⚠️ DISCIPLINA
 function mostrarDisciplina(){
   var html = "";
 
-  datosGlobal.disciplina.forEach(d => {
-    html += `
-    <div style="background:white;margin:10px 0;padding:15px;border-radius:15px;">
-      <div style="color:#0d47a1;font-weight:bold;">📅 ${d.fecha}</div>
-      <div>${d.detalle}</div>
-    </div>
-    `;
-  });
+  if (!datosGlobal.disciplina || datosGlobal.disciplina.length === 0) {
+    html = "Sin registros";
+  } else {
+    datosGlobal.disciplina.forEach(d => {
+      html += `
+      <div style="background:white;margin:10px 0;padding:15px;border-radius:15px;">
+        <div style="color:#0d47a1;font-weight:bold;">📅 ${d.fecha || ""}</div>
+        <div>${d.detalle || ""}</div>
+      </div>
+      `;
+    });
+  }
 
   document.getElementById("contenido").innerHTML = html;
 }
 
 
-// LOGOUT
+// 🚪 LOGOUT
 function logout(){
   datosGlobal = null;
   mainView.router.navigate('/login/');
