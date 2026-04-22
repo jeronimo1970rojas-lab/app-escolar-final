@@ -276,40 +276,48 @@ function mostrarNotas(){
 
 // ⚠️ DISCIPLINA
 function mostrarDisciplina(){
+
   var html = "";
 
   if (!datosGlobal.disciplina || datosGlobal.disciplina.length === 0) {
-    html = "Sin registros";
+    html = `<div style="text-align:center;color:#777;">Sin registros</div>`;
   } else {
+
     datosGlobal.disciplina.forEach(d => {
-     html += `
-<div class="card-app">
-  background:white;
-  margin:12px 0;
-  padding:15px;
-  border-radius:15px;
-  box-shadow:0 4px 10px rgba(0,0,0,0.1);
-">
 
-  <div style="font-size:13px; color:#777;">
-    ${d.fecha}
-  </div>
+      var fecha = d.fecha || "";
+      var texto = d.detalle || "";
 
-  <div style="
-    font-size:15px;
-    margin-top:5px;
-  ">
-    ${d.detalle}
-  </div>
+      html += `
+      <div style="
+        background:white;
+        margin:12px 0;
+        padding:15px;
+        border-radius:15px;
+        box-shadow:0 4px 10px rgba(0,0,0,0.1);
+      ">
 
-</div>
-`;
+        <div style="
+          font-size:13px;
+          color:#0d47a1;
+          margin-bottom:5px;
+          font-weight:bold;
+        ">
+          📅 ${fecha}
+        </div>
+
+        <div style="font-size:15px;">
+          ${texto}
+        </div>
+
+      </div>
+      `;
     });
+
   }
 
   document.getElementById("contenido").innerHTML = html;
 }
-
 
 // 🚪 LOGOUT
 function logout(){
