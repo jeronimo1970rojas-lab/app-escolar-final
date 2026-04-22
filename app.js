@@ -300,7 +300,6 @@ function mostrarNotas(){
 
   document.getElementById("contenido").innerHTML = html;
 }
-
 // ⚠️ DISCIPLINA
 function mostrarDisciplina(){
 
