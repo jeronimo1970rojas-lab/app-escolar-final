@@ -220,10 +220,15 @@ var app = new Framework7({
 
 </div>
 
-        <!-- CONTENIDO -->
-        <div class="page-content" style="padding:10px;">
-          <div id="contenido"></div>
-        </div>
+      <!-- CONTENIDO -->
+<div class="page-content" style="padding:10px;">
+
+  <!-- 🔥 TITULO DINÁMICO -->
+  <h3 id="tituloSeccion" style="margin:10px 5px;"></h3>
+
+  <div id="contenido"></div>
+
+</div>
 
       </div>
       `
@@ -277,7 +282,7 @@ function cargarPanel(){
 
 // 📘 NOTAS
 function mostrarNotas(){
-
+document.getElementById("tituloSeccion").innerText = "📘 Notas";
   var html = "";
 
   datosGlobal.notas.forEach(n => {
@@ -287,54 +292,35 @@ document.getElementById("btnNotas").style.color = "white";
 document.getElementById("btnDisciplina").style.background = "#e0e0e0";
 document.getElementById("btnDisciplina").style.color = "#555";
     html += `
-    <div style="
-      background:white;
-      margin:12px 0;
-      padding:18px;
-      border-radius:18px;
-      box-shadow:0 6px 15px rgba(0,0,0,0.08);
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      border-left:6px solid #2196f3;
-    ">
+<div style="
+  background:white;
+  margin:10px 0;
+  padding:15px;
+  border-radius:15px;
+  box-shadow:0 4px 8px rgba(0,0,0,0.08);
+">
 
-      <div>
-        <div style="
-          font-size:13px;
-          color:#888;
-        ">
-          Materia
-        </div>
+  <div style="font-size:14px;color:#666;">
+    ${n.materia}
+  </div>
 
-        <div style="
-          font-size:16px;
-          font-weight:bold;
-        ">
-          ${n.materia}
-        </div>
-      </div>
+  <div style="
+    font-size:20px;
+    font-weight:bold;
+    color:#2196f3;
+  ">
+    ${n.nota}
+  </div>
 
-      <div style="
-        background:linear-gradient(135deg,#2196f3,#21cbf3);
-        color:white;
-        padding:10px 16px;
-        border-radius:15px;
-        font-size:18px;
-        font-weight:bold;
-        box-shadow:0 3px 8px rgba(33,150,243,0.3);
-      ">
-        ${n.nota}
-      </div>
-
-    </div>
-    `;
+</div>
+`;
   });
 
   document.getElementById("contenido").innerHTML = html;
 }
 // ⚠️ DISCIPLINA
 function mostrarDisciplina(){
+  document.getElementById("tituloSeccion").innerText = "⚠️ Disciplina";
 document.getElementById("btnDisciplina").style.background = "linear-gradient(135deg,#ff9800,#ffb74d)";
 document.getElementById("btnDisciplina").style.color = "white";
 
@@ -351,35 +337,25 @@ document.getElementById("btnNotas").style.color = "#555";
       var fecha = d.fecha || "";
       var texto = d.detalle || "";
 
-      html += `
-      <div style="
-        background:white;
-        margin:12px 0;
-        padding:16px;
-        border-radius:18px;
-        box-shadow:0 6px 15px rgba(0,0,0,0.08);
-        border-left:6px solid #ff9800;
-      ">
+     html += `
+<div style="
+  background:white;
+  margin:10px 0;
+  padding:15px;
+  border-radius:15px;
+  box-shadow:0 4px 8px rgba(0,0,0,0.08);
+">
 
-        <div style="
-          font-size:13px;
-          color:#e65100;
-          font-weight:bold;
-          margin-bottom:6px;
-        ">
-          📅 ${fecha}
-        </div>
+  <div style="font-size:13px;color:#ff9800;font-weight:bold;">
+    📅 ${fecha}
+  </div>
 
-        <div style="
-          font-size:15px;
-          color:#333;
-          line-height:1.4;
-        ">
-          ${texto}
-        </div>
+  <div style="margin-top:5px;">
+    ${texto}
+  </div>
 
-      </div>
-      `;
+</div>
+`;
     });
 
   }
