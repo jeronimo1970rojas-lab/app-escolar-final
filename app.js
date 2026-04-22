@@ -227,7 +227,7 @@ var app = new Framework7({
 
   </div>
   `
-}
+},
 ] // 🔥 AQUÍ SE CIERRA BIEN routes
 
 }); // 🔥 Y AQUÍ SE CIERRA Framework7
