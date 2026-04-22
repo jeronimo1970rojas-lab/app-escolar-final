@@ -232,8 +232,9 @@ var app = new Framework7({
 
 }); // 🔥 Y AQUÍ SE CIERRA Framework7
 // ✅ VIEW
-var mainView = app.views.create('.view-main');
-
+var mainView = app.views.create('.view-main', {
+  url: '/'
+});
 // ✅ INICIO
 app.views.main.router.navigate('/');
 
@@ -256,7 +257,6 @@ function login(){
 
       if (data.status === "ok") {
         datosGlobal = data;
-        mainView.router.navigate('/panel/');
         setTimeout(() => cargarPanel(), 300);
       } else {
         alert("Usuario incorrecto");
@@ -364,8 +364,7 @@ document.getElementById("btnNotas").style.color = "#555";
 // 🚪 LOGOUT
 function logout(){
   datosGlobal = null;
-  mainView.router.navigate('/login/');
-}
+  }
 function cargarAvisos(){
 
   fetch(url + "?accion=avisos")
