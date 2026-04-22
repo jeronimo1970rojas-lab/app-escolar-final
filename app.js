@@ -228,9 +228,9 @@ var app = new Framework7({
   </div>
   `
 }
- ] // 🔥 AQUÍ SE CIERRA BIEN routes
+] // 🔥 AQUÍ SE CIERRA BIEN routes
 
-
+}); // 🔥 Y AQUÍ SE CIERRA Framework7
 // ✅ VIEW
 var mainView = app.views.create('.view-main');
 
