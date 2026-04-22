@@ -155,6 +155,11 @@ var app = new Framework7({
    {
   path: '/panel/',
   content: `
+  on: {
+  pageAfterIn: () => {
+    cargarPanel();
+  }
+}
   <div class="page">
 
     <!-- HEADER -->
@@ -257,7 +262,6 @@ function login(){
 
       if (data.status === "ok") {
         datosGlobal = data;
-        setTimeout(() => cargarPanel(), 300);
       } else {
         alert("Usuario incorrecto");
       }
