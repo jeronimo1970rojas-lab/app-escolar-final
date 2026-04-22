@@ -154,10 +154,12 @@ var app = new Framework7({
 
    {
   path: '/panel/',
-  content: `
+  content: `...`,
   on: {
-  pageAfterIn: () => {
-    cargarPanel();
+    pageAfterIn: () => {
+      console.log("Panel cargado"); // 🔍 DEBUG
+      cargarPanel();
+    }
   }
 }
   <div class="page">
@@ -258,17 +260,26 @@ function login(){
   fetch(url + "?usuario=" + usuario + "&password=" + password)
     .then(res => res.text())
     .then(text => {
+
+      console.log("RESPUESTA:", text); // 🔍 DEBUG
+
       var data = JSON.parse(text);
 
       if (data.status === "ok") {
         datosGlobal = data;
+
+        // 🔥 SOLO NAVEGAR
+        mainView.router.navigate('/panel/');
+
       } else {
         alert("Usuario incorrecto");
       }
     })
-    .catch(() => alert("Error conexión"));
+    .catch(error => {
+      console.log(error);
+      alert("Error conexión");
+    });
 }
-
 
 // 📊 PANEL
 function cargarPanel(){
@@ -421,4 +432,19 @@ function cargarAvisos(){
 }
 function irLogin(){
   mainView.router.navigate('/login/');
+}
+function cargarPanel(){
+
+  if (!datosGlobal) {
+    console.log("No hay datos");
+    return;
+  }
+
+  var nombre = document.getElementById("nombreAlumno");
+
+  if (nombre) {
+    nombre.innerHTML = datosGlobal.nombre;
+  }
+
+  mostrarNotas();
 }
