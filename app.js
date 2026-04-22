@@ -283,6 +283,7 @@ function cargarPanel(){
 // 📘 NOTAS
 function mostrarNotas(){
 document.getElementById("tituloSeccion").innerText = "📘 Notas";
+
   var html = "";
 
   datosGlobal.notas.forEach(n => {
