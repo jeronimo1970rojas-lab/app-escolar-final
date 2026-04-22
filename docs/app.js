@@ -252,13 +252,7 @@ function mostrarNotas(){
 
   datosGlobal.notas.forEach(n => {
     html += `
-<div style="
-  background:white;
-  margin:12px 0;
-  padding:15px;
-  border-radius:15px;
-  box-shadow:0 4px 10px rgba(0,0,0,0.1);
-">
+<div class="card-app">
 
   <div style="font-size:14px; color:#555;">
     ${n.materia}
@@ -289,7 +283,7 @@ function mostrarDisciplina(){
   } else {
     datosGlobal.disciplina.forEach(d => {
      html += `
-<div style="
+<div class="card-app">
   background:white;
   margin:12px 0;
   padding:15px;
