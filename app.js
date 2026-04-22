@@ -152,91 +152,82 @@ var app = new Framework7({
       `
     },
 
-    // 🟧 PANEL
-    {
-      path: '/panel/',
-      content: `
-      <div class="page">
+   {
+  path: '/panel/',
+  content: `
+  <div class="page">
 
-        <!-- HEADER -->
-        <div style="
-          background:#2196f3;
+    <!-- HEADER -->
+    <div style="
+      background:#2196f3;
+      color:white;
+      padding:15px;
+      text-align:center;
+    ">
+      <h3 id="nombreAlumno"></h3>
+      <button onclick="logout()" style="
+        background:white;
+        color:#2196f3;
+        border:none;
+        padding:5px 10px;
+        border-radius:10px;
+      ">
+        Salir
+      </button>
+    </div>
+
+    <!-- BOTONES FIJOS -->
+    <div style="
+      position:sticky;
+      top:0;
+      background:#f5f5f5;
+      padding:10px;
+      z-index:10;
+    ">
+      <div id="tabs" style="
+        display:grid;
+        grid-template-columns:1fr 1fr;
+        gap:10px;
+      ">
+
+        <button id="btnNotas" onclick="mostrarNotas()" style="
+          padding:14px;
+          border:none;
+          border-radius:15px;
+          background:linear-gradient(135deg,#4caf50,#66bb6a);
           color:white;
-          padding:15px;
-          text-align:center;
+          font-weight:bold;
+          box-shadow:0 4px 10px rgba(0,0,0,0.15);
         ">
-          <h3 id="nombreAlumno"></h3>
-          <button onclick="logout()" style="
-            background:white;
-            color:#2196f3;
-            border:none;
-            padding:5px 10px;
-            border-radius:10px;
-          ">
-            Salir
-          </button>
-        </div>
+          📘 Notas
+        </button>
 
-        <!-- BOTONES FIJOS -->
-        <div style="
-          position:sticky;
-          top:0;
-          background:#f5f5f5;
-          padding:10px;
-          display:grid;
-          grid-template-columns:1fr 1fr;
-          gap:10px;
+        <button id="btnDisciplina" onclick="mostrarDisciplina()" style="
+          padding:14px;
+          border:none;
+          border-radius:15px;
+          background:#e0e0e0;
+          color:#555;
+          font-weight:bold;
         ">
-         <div id="tabs" style="
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
-">
-
-  <button id="btnNotas" onclick="mostrarNotas()" style="
-    padding:14px;
-    border:none;
-    border-radius:15px;
-    background:linear-gradient(135deg,#4caf50,#66bb6a);
-    color:white;
-    font-weight:bold;
-    box-shadow:0 4px 10px rgba(0,0,0,0.15);
-    transition:0.3s;
-  ">
-    📘 Notas
-  </button>
-
-  <button id="btnDisciplina" onclick="mostrarDisciplina()" style="
-    padding:14px;
-    border:none;
-    border-radius:15px;
-    background:#e0e0e0;
-    color:#555;
-    font-weight:bold;
-    transition:0.3s;
-  ">
-    ⚠️ Disciplina
-  </button>
-
-</div>
-
-      <!-- CONTENIDO -->
-<div class="page-content" style="padding:10px;">
-
-  <!-- 🔥 TITULO DINÁMICO -->
-  <h3 id="tituloSeccion" style="margin:10px 5px;"></h3>
-
-  <div id="contenido"></div>
-
-</div>
+          ⚠️ Disciplina
+        </button>
 
       </div>
-      `
-    }
+    </div> <!-- 🔥 ESTE DIV FALTABA CERRAR BIEN -->
 
-  ]
-});
+    <!-- CONTENIDO (SCROLL REAL) -->
+    <div class="page-content" style="padding:10px;">
 
+      <h3 id="tituloSeccion" style="margin:10px 5px;"></h3>
+
+      <div id="contenido"></div>
+
+    </div>
+
+  </div>
+  `
+}
 
 // ✅ VIEW
 var mainView = app.views.create('.view-main');
