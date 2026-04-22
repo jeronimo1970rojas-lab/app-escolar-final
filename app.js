@@ -282,39 +282,44 @@ function cargarPanel(){
 
 // 📘 NOTAS
 function mostrarNotas(){
-document.getElementById("tituloSeccion").innerText = "📘 Notas";
+
+  // 🔥 1. TITULO (correcto)
+  document.getElementById("tituloSeccion").innerText = "📘 Notas";
+
+  // 🔥 2. BOTONES (MOVER AQUÍ ARRIBA)
+  document.getElementById("btnNotas").style.background = "linear-gradient(135deg,#4caf50,#66bb6a)";
+  document.getElementById("btnNotas").style.color = "white";
+
+  document.getElementById("btnDisciplina").style.background = "#e0e0e0";
+  document.getElementById("btnDisciplina").style.color = "#555";
 
   var html = "";
 
   datosGlobal.notas.forEach(n => {
-document.getElementById("btnNotas").style.background = "linear-gradient(135deg,#4caf50,#66bb6a)";
-document.getElementById("btnNotas").style.color = "white";
 
-document.getElementById("btnDisciplina").style.background = "#e0e0e0";
-document.getElementById("btnDisciplina").style.color = "#555";
     html += `
-<div style="
-  background:white;
-  margin:10px 0;
-  padding:15px;
-  border-radius:15px;
-  box-shadow:0 4px 8px rgba(0,0,0,0.08);
-">
+    <div style="
+      background:white;
+      margin:10px 0;
+      padding:15px;
+      border-radius:15px;
+      box-shadow:0 4px 8px rgba(0,0,0,0.08);
+    ">
 
-  <div style="font-size:14px;color:#666;">
-    ${n.materia}
-  </div>
+      <div style="font-size:14px;color:#666;">
+        ${n.materia}
+      </div>
 
-  <div style="
-    font-size:20px;
-    font-weight:bold;
-    color:#2196f3;
-  ">
-    ${n.nota}
-  </div>
+      <div style="
+        font-size:20px;
+        font-weight:bold;
+        color:#2196f3;
+      ">
+        ${n.nota}
+      </div>
 
-</div>
-`;
+    </div>
+    `;
   });
 
   document.getElementById("contenido").innerHTML = html;
