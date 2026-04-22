@@ -187,9 +187,38 @@ var app = new Framework7({
           grid-template-columns:1fr 1fr;
           gap:10px;
         ">
-          <button onclick="mostrarNotas()">Notas</button>
-          <button onclick="mostrarDisciplina()">Disciplina</button>
-        </div>
+         <div id="tabs" style="
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+">
+
+  <button id="btnNotas" onclick="mostrarNotas()" style="
+    padding:14px;
+    border:none;
+    border-radius:15px;
+    background:linear-gradient(135deg,#4caf50,#66bb6a);
+    color:white;
+    font-weight:bold;
+    box-shadow:0 4px 10px rgba(0,0,0,0.15);
+    transition:0.3s;
+  ">
+    📘 Notas
+  </button>
+
+  <button id="btnDisciplina" onclick="mostrarDisciplina()" style="
+    padding:14px;
+    border:none;
+    border-radius:15px;
+    background:#e0e0e0;
+    color:#555;
+    font-weight:bold;
+    transition:0.3s;
+  ">
+    ⚠️ Disciplina
+  </button>
+
+</div>
 
         <!-- CONTENIDO -->
         <div class="page-content" style="padding:10px;">
@@ -252,7 +281,11 @@ function mostrarNotas(){
   var html = "";
 
   datosGlobal.notas.forEach(n => {
+document.getElementById("btnNotas").style.background = "linear-gradient(135deg,#4caf50,#66bb6a)";
+document.getElementById("btnNotas").style.color = "white";
 
+document.getElementById("btnDisciplina").style.background = "#e0e0e0";
+document.getElementById("btnDisciplina").style.color = "#555";
     html += `
     <div style="
       background:white;
@@ -302,7 +335,11 @@ function mostrarNotas(){
 }
 // ⚠️ DISCIPLINA
 function mostrarDisciplina(){
+document.getElementById("btnDisciplina").style.background = "linear-gradient(135deg,#ff9800,#ffb74d)";
+document.getElementById("btnDisciplina").style.color = "white";
 
+document.getElementById("btnNotas").style.background = "#e0e0e0";
+document.getElementById("btnNotas").style.color = "#555";
   var html = "";
 
   if (!datosGlobal.disciplina || datosGlobal.disciplina.length === 0) {
