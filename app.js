@@ -248,31 +248,58 @@ function cargarPanel(){
 
 // 📘 NOTAS
 function mostrarNotas(){
+
   var html = "";
 
   datosGlobal.notas.forEach(n => {
+
     html += `
-<div class="card-app">
+    <div style="
+      background:white;
+      margin:12px 0;
+      padding:18px;
+      border-radius:18px;
+      box-shadow:0 6px 15px rgba(0,0,0,0.08);
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      border-left:6px solid #2196f3;
+    ">
 
-  <div style="font-size:14px; color:#555;">
-    ${n.materia}
-  </div>
+      <div>
+        <div style="
+          font-size:13px;
+          color:#888;
+        ">
+          Materia
+        </div>
 
-  <div style="
-    font-size:22px;
-    font-weight:bold;
-    margin-top:5px;
-  ">
-    ${n.nota}
-  </div>
+        <div style="
+          font-size:16px;
+          font-weight:bold;
+        ">
+          ${n.materia}
+        </div>
+      </div>
 
-</div>
-`;
+      <div style="
+        background:linear-gradient(135deg,#2196f3,#21cbf3);
+        color:white;
+        padding:10px 16px;
+        border-radius:15px;
+        font-size:18px;
+        font-weight:bold;
+        box-shadow:0 3px 8px rgba(33,150,243,0.3);
+      ">
+        ${n.nota}
+      </div>
+
+    </div>
+    `;
   });
 
   document.getElementById("contenido").innerHTML = html;
 }
-
 
 // ⚠️ DISCIPLINA
 function mostrarDisciplina(){
@@ -292,21 +319,26 @@ function mostrarDisciplina(){
       <div style="
         background:white;
         margin:12px 0;
-        padding:15px;
-        border-radius:15px;
-        box-shadow:0 4px 10px rgba(0,0,0,0.1);
+        padding:16px;
+        border-radius:18px;
+        box-shadow:0 6px 15px rgba(0,0,0,0.08);
+        border-left:6px solid #ff9800;
       ">
 
         <div style="
           font-size:13px;
-          color:#0d47a1;
-          margin-bottom:5px;
+          color:#e65100;
           font-weight:bold;
+          margin-bottom:6px;
         ">
           📅 ${fecha}
         </div>
 
-        <div style="font-size:15px;">
+        <div style="
+          font-size:15px;
+          color:#333;
+          line-height:1.4;
+        ">
           ${texto}
         </div>
 
@@ -318,7 +350,6 @@ function mostrarDisciplina(){
 
   document.getElementById("contenido").innerHTML = html;
 }
-
 // 🚪 LOGOUT
 function logout(){
   datosGlobal = null;
