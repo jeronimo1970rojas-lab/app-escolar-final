@@ -252,10 +252,28 @@ function mostrarNotas(){
 
   datosGlobal.notas.forEach(n => {
     html += `
-    <div style="background:white;margin:10px 0;padding:15px;border-radius:15px;">
-      <b>${n.materia}</b> - ${n.nota}
-    </div>
-    `;
+<div style="
+  background:white;
+  margin:12px 0;
+  padding:15px;
+  border-radius:15px;
+  box-shadow:0 4px 10px rgba(0,0,0,0.1);
+">
+
+  <div style="font-size:14px; color:#555;">
+    ${n.materia}
+  </div>
+
+  <div style="
+    font-size:22px;
+    font-weight:bold;
+    margin-top:5px;
+  ">
+    ${n.nota}
+  </div>
+
+</div>
+`;
   });
 
   document.getElementById("contenido").innerHTML = html;
@@ -270,12 +288,28 @@ function mostrarDisciplina(){
     html = "Sin registros";
   } else {
     datosGlobal.disciplina.forEach(d => {
-      html += `
-      <div style="background:white;margin:10px 0;padding:15px;border-radius:15px;">
-        <div style="color:#0d47a1;font-weight:bold;">📅 ${d.fecha || ""}</div>
-        <div>${d.detalle || ""}</div>
-      </div>
-      `;
+     html += `
+<div style="
+  background:white;
+  margin:12px 0;
+  padding:15px;
+  border-radius:15px;
+  box-shadow:0 4px 10px rgba(0,0,0,0.1);
+">
+
+  <div style="font-size:13px; color:#777;">
+    ${d.fecha}
+  </div>
+
+  <div style="
+    font-size:15px;
+    margin-top:5px;
+  ">
+    ${d.detalle}
+  </div>
+
+</div>
+`;
     });
   }
 
