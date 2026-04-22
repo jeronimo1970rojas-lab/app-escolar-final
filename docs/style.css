@@ -26,3 +26,6 @@ function doPost(e) {
     status: "error"
   })).setMimeType(ContentService.MimeType.JSON);
 }
+.page-content {
+  background: #f5f5f5;
+}
