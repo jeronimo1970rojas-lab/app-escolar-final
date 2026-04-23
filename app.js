@@ -152,16 +152,30 @@ var app = new Framework7({
       `
     },
 
-   {
+  {
   path: '/panel/',
-  content: `...`,
-  on: {
-    pageAfterIn: () => {
-      console.log("Panel cargado"); // 🔍 DEBUG
-      cargarPanel();
-    }
-  }
-}
+  content: `
+  <div class="page">
+
+    <div style="background:#2196f3;color:white;padding:15px;text-align:center;">
+      <h3 id="nombreAlumno"></h3>
+      <button onclick="logout()">Salir</button>
+    </div>
+
+    <div class="page-content">
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:10px;">
+        <button onclick="mostrarNotas()">Notas</button>
+        <button onclick="mostrarDisciplina()">Disciplina</button>
+      </div>
+
+      <div id="contenido" style="padding:10px;"></div>
+
+    </div>
+
+  </div>
+  `
+},
   <div class="page">
 
     <!-- HEADER -->
