@@ -31,23 +31,33 @@ var app = new Framework7({
     },
 
     {
-      path: '/panel/',
-      content: `
-      <div class="page">
-        <div class="page-content">
-          <h2 id="nombreAlumno"></h2>
-        </div>
-      </div>
-      `,
-      on: {
-        pageAfterIn: () => {
-          cargarPanel();
-        }
-      }
-    }
+  path: '/panel/',
+  content: `
+  <div class="page">
 
-  ]
-});
+    <div style="background:#2196f3;color:white;padding:15px;text-align:center;">
+      <h3 id="nombreAlumno"></h3>
+    </div>
+
+    <div class="page-content">
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:10px;">
+        <button onclick="mostrarNotas()">📘 Notas</button>
+        <button onclick="mostrarDisciplina()">⚠️ Disciplina</button>
+      </div>
+
+      <div id="contenido" style="padding:10px;"></div>
+
+    </div>
+
+  </div>
+  `,
+  on: {
+    pageAfterIn: () => {
+      cargarPanel();
+    }
+  }
+}
 
 // VIEW
 var mainView = app.views.create('.view-main', {
@@ -91,4 +101,53 @@ function cargarPanel(){
 // NAV
 function irLogin(){
   mainView.router.navigate('/login/');
+}
+function mostrarNotas(){
+
+  var html = "";
+
+  datosGlobal.notas.forEach(n => {
+    html += `
+    <div style="
+      background:white;
+      margin:10px 0;
+      padding:15px;
+      border-radius:10px;
+      box-shadow:0 3px 8px rgba(0,0,0,0.1);
+    ">
+      <b>${n.materia}</b><br>
+      Nota: ${n.nota}
+    </div>
+    `;
+  });
+
+  document.getElementById("contenido").innerHTML = html;
+}
+
+function mostrarDisciplina(){
+
+  var html = "";
+
+  if (!datosGlobal.disciplina.length){
+    html = "Sin registros";
+  } else {
+
+    datosGlobal.disciplina.forEach(d => {
+      html += `
+      <div style="
+        background:white;
+        margin:10px 0;
+        padding:15px;
+        border-radius:10px;
+        box-shadow:0 3px 8px rgba(0,0,0,0.1);
+      ">
+        📅 ${d.fecha}<br>
+        ${d.detalle}
+      </div>
+      `;
+    });
+
+  }
+
+  document.getElementById("contenido").innerHTML = html;
 }
