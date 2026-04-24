@@ -3,8 +3,8 @@
 let ultimaCantidadAvisos = 0;
 let ultimaCantidadNotas = 0;
 let ultimaCantidadDisciplina = 0;
-var app = new Framework7({
-  if ("Notification" in window) {
+var app = new Framework7(
+ if ('Notification' in window && Notification.permission !== 'granted') {
   Notification.requestPermission();
 }
   el: '#app',
