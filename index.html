@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#1565c0">
+<link rel="apple-touch-icon" href="icon-192.png">
 <meta charset="utf-8">
 <title>App Escolar</title>
 
@@ -13,7 +15,11 @@
 </head>
 
 <body>
-
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('./sw.js');
+}
+</script>
 <div id="app">
   <div class="view view-main"></div>
 </div>
