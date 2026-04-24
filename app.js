@@ -1,7 +1,12 @@
 // Elimina TODO el contenido de app.js
 // y reemplázalo por este código completo.
-
+let ultimaCantidadAvisos = 0;
+let ultimaCantidadNotas = 0;
+let ultimaCantidadDisciplina = 0;
 var app = new Framework7({
+  if ("Notification" in window) {
+  Notification.requestPermission();
+}
   el: '#app',
 
   routes: [
@@ -330,6 +335,19 @@ function cargarPanel() {
 
   document.getElementById('nombreAlumno').textContent =
     datosGlobal.nombre;
+
+  // Mostrar notas al ingresar
+  mostrarNotas();
+
+  // Iniciar monitoreo automático
+  setInterval(function () {
+    const usuario = localStorage.getItem('usuario');
+
+    verificarAvisos();
+    verificarNotas(usuario);
+    verificarDisciplina(usuario);
+
+  }, 60000);
 }
 
 function mostrarNotas() {
@@ -369,3 +387,66 @@ function mostrarDisciplina() {
 
   document.getElementById('contenido').innerHTML = html;
 }
+function mostrarNotificacion(titulo, mensaje) {
+  if (Notification.permission === "granted") {
+    new Notification(titulo, {
+      body: mensaje,
+      icon: "./icon-192.png"
+    });
+  }
+}
+function verificarAvisos() {
+  fetch(API_URL + '?accion=avisos')
+    .then(r => r.json())
+    .then(data => {
+      if (ultimaCantidadAvisos > 0 && data.length > ultimaCantidadAvisos) {
+        const ultimo = data[data.length - 1];
+        mostrarNotificacion(
+          "Nuevo Aviso Escolar",
+          ultimo.mensaje
+        );
+      }
+      ultimaCantidadAvisos = data.length;
+    });
+}
+function verificarNotas(usuario) {
+  fetch(API_URL + '?usuario=' + usuario + '&password=' + localStorage.getItem('password'))
+    .then(r => r.json())
+    .then(data => {
+      if (data.status === 'ok') {
+        if (ultimaCantidadNotas > 0 &&
+            data.notas.length > ultimaCantidadNotas) {
+
+          const ultima = data.notas[data.notas.length - 1];
+
+          mostrarNotificacion(
+            "Nueva Nota Registrada",
+            ultima.materia + ': ' + ultima.nota
+          );
+        }
+
+        ultimaCantidadNotas = data.notas.length;
+      }
+    });
+}
+function verificarDisciplina(usuario) {
+  fetch(API_URL + '?usuario=' + usuario + '&password=' + localStorage.getItem('password'))
+    .then(r => r.json())
+    .then(data => {
+      if (data.status === 'ok') {
+        if (ultimaCantidadDisciplina > 0 &&
+            data.disciplina.length > ultimaCantidadDisciplina) {
+
+          const ultima = data.disciplina[data.disciplina.length - 1];
+
+          mostrarNotificacion(
+            "Nueva Observación",
+            ultima.detalle
+          );
+        }
+
+        ultimaCantidadDisciplina = data.disciplina.length;
+      }
+    });
+}
+
