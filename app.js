@@ -4,11 +4,7 @@ let ultimaCantidadAvisos = 0;
 let ultimaCantidadNotas = 0;
 let ultimaCantidadDisciplina = 0;
 var app = new Framework7(
- if ('Notification' in window && Notification.permission !== 'granted') {
-  Notification.requestPermission();
-}
   el: '#app',
-
   routes: [
     {
   path: '/',
@@ -259,7 +255,12 @@ var app = new Framework7(
     }
   ]
 });
-
+// Solicitar permiso para notificaciones
+if ('Notification' in window) {
+  Notification.requestPermission().then(function(permission) {
+    console.log('Permiso de notificaciones:', permission);
+  });
+}
 var mainView = app.views.create('.view-main', {
   url: '/'
 });
