@@ -1,4 +1,4 @@
-const CACHE_NAME = 'app-escolar-v1';
+const CACHE_NAME = 'app-escolar-v3';
 
 const urlsToCache = [
   './',
