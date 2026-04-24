@@ -22,7 +22,7 @@ var app = new Framework7({
             color:white;
           ">
             <div>
-              <img src="logo.png" style="
+             <img src="./logo.png">
                 width:130px;
                 height:130px;
                 object-fit:contain;
@@ -39,7 +39,7 @@ var app = new Framework7({
             </div>
 
             <div>
-              <img src="profesor.jpg" style="
+            <img src="./profesor.jpg">
                 width:180px;
                 height:180px;
                 border-radius:50%;
