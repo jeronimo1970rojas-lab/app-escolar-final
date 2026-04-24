@@ -91,7 +91,7 @@ var mainView = app.views.create('.view-main', {
 });
 
 // URL de Google Apps Script
-var url = "https://script.google.com/macros/s/AKfycby6b0ORiFY5JPSgv1qKfJb4PZCqzZIiUw2znW5QOR7TbCe75TMwYEcDlQjumMRvt4fU/exec";
+var url = "https://script.google.com/macros/s/AKfycbw5i9k3lKB_F1W_lp-_FZNsEVT1RJiU6Yy4dTMydHHSbgjnqoPOQI2zKjkTsBepkABC/exec";
 
 var datosGlobal = null;
 
