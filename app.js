@@ -2,15 +2,12 @@ var app = new Framework7({
   el: '#app',
 
   routes: [
-    // ==========================================
-    // PANTALLA 1 - BIENVENIDA
-    // ==========================================
     {
       path: '/',
       content: `
       <div class="page no-navbar">
         <div class="page-content" style="
-          background: linear-gradient(135deg,#1565c0,#42a5f5);
+          background:linear-gradient(135deg,#1565c0,#42a5f5);
           height:100vh;
           display:flex;
           flex-direction:column;
@@ -29,11 +26,11 @@ var app = new Framework7({
               margin-bottom:20px;
             ">
 
-            <h1 style="margin:0;font-size:30px;font-weight:bold;">
+            <h1 style="margin:0;font-size:30px;">
               PRE-PROMO "B"
             </h1>
 
-            <h2 style="margin:10px 0 0;font-size:24px;">
+            <h2 style="margin:10px 0 0 0;font-size:24px;">
               CBSC
             </h2>
           </div>
@@ -64,9 +61,6 @@ var app = new Framework7({
       }
     },
 
-    // ==========================================
-    // PANTALLA 2 - AVISOS
-    // ==========================================
     {
       path: '/avisos/',
       content: `
@@ -85,9 +79,9 @@ var app = new Framework7({
         </div>
 
         <div class="page-content" style="
-          padding:15px;
-          padding-bottom:100px;
           background:#f5f5f5;
+          padding:15px;
+          padding-bottom:90px;
         ">
           <div id="listaAvisos">
             <p style="text-align:center;">Cargando avisos...</p>
@@ -99,10 +93,10 @@ var app = new Framework7({
           bottom:0;
           left:0;
           width:100%;
-          background:white;
+          background:#fff;
           padding:15px;
-          box-shadow:0 -4px 15px rgba(0,0,0,0.1);
           box-sizing:border-box;
+          box-shadow:0 -4px 12px rgba(0,0,0,0.1);
           z-index:999;
         ">
           <button
@@ -122,9 +116,6 @@ var app = new Framework7({
       }
     },
 
-    // ==========================================
-    // PANTALLA 3 - LOGIN
-    // ==========================================
     {
       path: '/login/',
       content: `
@@ -184,16 +175,8 @@ var app = new Framework7({
         </div>
       </div>
       `
-    }
-  ]
-});
+    },
 
-var mainView = app.views.create('.view-main', {
-  url: '/'
-});
-    // ==========================================
-    // PANTALLA 4 - PANEL
-    // ==========================================
     {
       path: '/panel/',
       content: `
@@ -208,7 +191,6 @@ var mainView = app.views.create('.view-main', {
         </div>
 
         <div class="page-content">
-
           <div style="
             display:grid;
             grid-template-columns:1fr 1fr;
@@ -225,7 +207,6 @@ var mainView = app.views.create('.view-main', {
           </div>
 
           <div id="contenido" style="padding:15px;"></div>
-
         </div>
       </div>
       `,
@@ -238,33 +219,17 @@ var mainView = app.views.create('.view-main', {
   ]
 });
 
-// ==========================================
-// VISTA PRINCIPAL
-// ==========================================
 var mainView = app.views.create('.view-main', {
   url: '/'
 });
 
-// ==========================================
-// URL GOOGLE APPS SCRIPT
-// ==========================================
 var url = "https://script.google.com/macros/s/AKfycbw5i9k3lKB_F1W_lp-_FZNsEVT1RJiU6Yy4dTMydHHSbgjnqoPOQI2zKjkTsBepkABC/exec";
-
-// ==========================================
-// VARIABLES GLOBALES
-// ==========================================
 var datosGlobal = null;
 
-// ==========================================
-// NAVEGACIÓN
-// ==========================================
 function irLogin() {
   mainView.router.navigate('/login/');
 }
 
-// ==========================================
-// CARGAR AVISOS
-// ==========================================
 function cargarAvisos() {
   fetch(url + "?accion=avisos")
     .then(response => response.json())
@@ -272,17 +237,15 @@ function cargarAvisos() {
       let html = "";
 
       if (data.length === 0) {
-        html = `
-          <div class="card-app">
-            No hay avisos disponibles.
-          </div>
-        `;
+        html = '<div class="card-app">No hay avisos disponibles.</div>';
       } else {
         data.forEach(aviso => {
           html += `
             <div class="card-app">
-              <h3>${aviso.mensaje}</h3>
-              <p>📅 ${aviso.fecha}</p>
+              <p style="color:#1565c0;font-weight:bold;margin-bottom:10px;">
+                📅 ${aviso.fecha}
+              </p>
+              <h3 style="margin:0;">${aviso.mensaje}</h3>
             </div>
           `;
         });
@@ -290,24 +253,21 @@ function cargarAvisos() {
 
       document.getElementById("listaAvisos").innerHTML = html;
     })
-    .catch(error => {
-      console.error(error);
-      document.getElementById("listaAvisos").innerHTML = `
-        <div class="card-app">
-          Error al cargar los avisos.
-        </div>
-      `;
+    .catch(() => {
+      document.getElementById("listaAvisos").innerHTML =
+        '<div class="card-app">Error al cargar avisos.</div>';
     });
 }
 
-// ==========================================
-// LOGIN
-// ==========================================
 function login() {
-  var usuario = document.getElementById("usuario").value;
-  var password = document.getElementById("password").value;
+  var usuario = document.getElementById("usuario").value.trim();
+  var password = document.getElementById("password").value.trim();
 
-  fetch(url + "?usuario=" + encodeURIComponent(usuario) + "&password=" + encodeURIComponent(password))
+  fetch(
+    url +
+      "?usuario=" + encodeURIComponent(usuario) +
+      "&password=" + encodeURIComponent(password)
+  )
     .then(response => response.json())
     .then(data => {
       if (data.status === "ok") {
@@ -317,24 +277,17 @@ function login() {
         app.dialog.alert("Usuario o contraseña incorrectos");
       }
     })
-    .catch(error => {
-      console.error(error);
+    .catch(() => {
       app.dialog.alert("Error de conexión");
     });
 }
 
-// ==========================================
-// PANEL
-// ==========================================
 function cargarPanel() {
   if (!datosGlobal) return;
-
-  document.getElementById("nombreAlumno").innerHTML = datosGlobal.nombre;
+  document.getElementById("nombreAlumno").textContent =
+    datosGlobal.nombre;
 }
 
-// ==========================================
-// MOSTRAR NOTAS
-// ==========================================
 function mostrarNotas() {
   let html = "";
 
@@ -350,9 +303,6 @@ function mostrarNotas() {
   document.getElementById("contenido").innerHTML = html;
 }
 
-// ==========================================
-// MOSTRAR DISCIPLINA
-// ==========================================
 function mostrarDisciplina() {
   let html = "";
 
@@ -363,11 +313,11 @@ function mostrarDisciplina() {
       </div>
     `;
   } else {
-    datosGlobal.disciplina.forEach(registro => {
+    datosGlobal.disciplina.forEach(item => {
       html += `
         <div class="card-app">
-          <p>📅 ${registro.fecha}</p>
-          <p>${registro.detalle}</p>
+          <p><strong>📅 ${item.fecha}</strong></p>
+          <p>${item.detalle}</p>
         </div>
       `;
     });
