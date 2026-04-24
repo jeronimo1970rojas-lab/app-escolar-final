@@ -3,7 +3,7 @@
 
 var app = new Framework7({
   el: '#app',
-name: 'App Escolar',
+
   routes: [
     {
   path: '/',
