@@ -15,13 +15,14 @@
 </head>
 
 <body>
-<script>
+
+<div id="app">
+  <div class="view view-main"></div>
+  <script>
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('./sw.js');
 }
 </script>
-<div id="app">
-  <div class="view view-main"></div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/framework7@7/framework7-bundle.min.js"></script>
