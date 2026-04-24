@@ -1,3 +1,14 @@
+var app = new Framework7({
+  el: '#app',
+
+  routes: [
+    // ==========================================
+    // PANTALLA 1 - BIENVENIDA
+    // ==========================================
+    {
+      // Reemplaza ÚNICAMENTE las tres rutas de '/', '/avisos/' y '/login/'
+// dentro del arreglo routes:[ ... ] de tu app.js actual.
+
 // ==========================================
 // PANTALLA 1 - BIENVENIDA
 // ==========================================
@@ -6,39 +17,38 @@
   content: `
   <div class="page no-navbar">
     <div class="page-content" style="
-      background: linear-gradient(135deg, #1565c0, #42a5f5);
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      align-items: center;
-      padding: 30px 20px 40px;
-      box-sizing: border-box;
-      text-align: center;
-      color: white;
+      background: linear-gradient(135deg,#1565c0,#42a5f5);
+      height:100vh;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      align-items:center;
+      padding:30px 20px 40px;
+      box-sizing:border-box;
+      text-align:center;
+      color:white;
     ">
 
       <div>
         <img src="logo.png" style="
-          width: 130px;
-          height: 130px;
-          object-fit: contain;
-          margin-top: 10px;
-          margin-bottom: 20px;
+          width:130px;
+          height:130px;
+          object-fit:contain;
+          margin-bottom:20px;
         ">
 
         <h1 style="
-          margin: 0;
-          font-size: 30px;
-          font-weight: bold;
+          margin:0;
+          font-size:30px;
+          font-weight:bold;
         ">
           PRE-PROMO "B"
         </h1>
 
         <h2 style="
-          margin: 10px 0 0 0;
-          font-size: 24px;
-          font-weight: normal;
+          margin:10px 0 0;
+          font-size:24px;
+          font-weight:normal;
         ">
           CBSC
         </h2>
@@ -46,17 +56,17 @@
 
       <div>
         <img src="profesor.jpg" style="
-          width: 180px;
-          height: 180px;
-          border-radius: 50%;
-          object-fit: cover;
-          border: 5px solid white;
-          box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+          width:180px;
+          height:180px;
+          border-radius:50%;
+          object-fit:cover;
+          border:5px solid white;
+          box-shadow:0 8px 20px rgba(0,0,0,0.3);
         ">
 
         <p style="
-          margin-top: 25px;
-          font-size: 18px;
+          margin-top:25px;
+          font-size:18px;
         ">
           ¡Bienvenidos al Sistema Académico!
         </p>
@@ -97,7 +107,7 @@
 
     <div class="page-content" style="
       padding:15px;
-      padding-bottom:90px;
+      padding-bottom:100px;
       background:#f5f5f5;
     ">
       <div id="listaAvisos">
@@ -113,8 +123,8 @@
       background:white;
       padding:15px;
       box-shadow:0 -4px 15px rgba(0,0,0,0.1);
-      z-index:999;
       box-sizing:border-box;
+      z-index:999;
     ">
       <button
         class="button button-fill button-large"
@@ -162,7 +172,6 @@
 
       <div class="list no-hairlines-md no-hairlines-between">
         <ul>
-
           <li class="item-content item-input">
             <div class="item-inner">
               <div class="item-input-wrap">
@@ -188,7 +197,6 @@
               </div>
             </div>
           </li>
-
         </ul>
       </div>
 
@@ -203,4 +211,189 @@
     </div>
   </div>
   `
+},
+
+    // ==========================================
+    // PANTALLA 4 - PANEL
+    // ==========================================
+    {
+      path: '/panel/',
+      content: `
+      <div class="page">
+        <div style="
+          background:#2196f3;
+          color:white;
+          padding:20px;
+          text-align:center;
+        ">
+          <h2 id="nombreAlumno"></h2>
+        </div>
+
+        <div class="page-content">
+
+          <div style="
+            display:grid;
+            grid-template-columns:1fr 1fr;
+            gap:10px;
+            padding:15px;
+          ">
+            <button class="button button-fill" onclick="mostrarNotas()">
+              📘 Notas
+            </button>
+
+            <button class="button button-fill button-color-orange" onclick="mostrarDisciplina()">
+              ⚠️ Disciplina
+            </button>
+          </div>
+
+          <div id="contenido" style="padding:15px;"></div>
+
+        </div>
+      </div>
+      `,
+      on: {
+        pageAfterIn: function () {
+          cargarPanel();
+        }
+      }
+    }
+  ]
+});
+
+// ==========================================
+// VISTA PRINCIPAL
+// ==========================================
+var mainView = app.views.create('.view-main', {
+  url: '/'
+});
+
+// ==========================================
+// URL GOOGLE APPS SCRIPT
+// ==========================================
+var url = "https://script.google.com/macros/s/AKfycbw5i9k3lKB_F1W_lp-_FZNsEVT1RJiU6Yy4dTMydHHSbgjnqoPOQI2zKjkTsBepkABC/exec";
+
+// ==========================================
+// VARIABLES GLOBALES
+// ==========================================
+var datosGlobal = null;
+
+// ==========================================
+// NAVEGACIÓN
+// ==========================================
+function irLogin() {
+  mainView.router.navigate('/login/');
+}
+
+// ==========================================
+// CARGAR AVISOS
+// ==========================================
+function cargarAvisos() {
+  fetch(url + "?accion=avisos")
+    .then(response => response.json())
+    .then(data => {
+      let html = "";
+
+      if (data.length === 0) {
+        html = `
+          <div class="card-app">
+            No hay avisos disponibles.
+          </div>
+        `;
+      } else {
+        data.forEach(aviso => {
+          html += `
+            <div class="card-app">
+              <h3>${aviso.mensaje}</h3>
+              <p>📅 ${aviso.fecha}</p>
+            </div>
+          `;
+        });
+      }
+
+      document.getElementById("listaAvisos").innerHTML = html;
+    })
+    .catch(error => {
+      console.error(error);
+      document.getElementById("listaAvisos").innerHTML = `
+        <div class="card-app">
+          Error al cargar los avisos.
+        </div>
+      `;
+    });
+}
+
+// ==========================================
+// LOGIN
+// ==========================================
+function login() {
+  var usuario = document.getElementById("usuario").value;
+  var password = document.getElementById("password").value;
+
+  fetch(url + "?usuario=" + encodeURIComponent(usuario) + "&password=" + encodeURIComponent(password))
+    .then(response => response.json())
+    .then(data => {
+      if (data.status === "ok") {
+        datosGlobal = data;
+        mainView.router.navigate('/panel/');
+      } else {
+        app.dialog.alert("Usuario o contraseña incorrectos");
+      }
+    })
+    .catch(error => {
+      console.error(error);
+      app.dialog.alert("Error de conexión");
+    });
+}
+
+// ==========================================
+// PANEL
+// ==========================================
+function cargarPanel() {
+  if (!datosGlobal) return;
+
+  document.getElementById("nombreAlumno").innerHTML = datosGlobal.nombre;
+}
+
+// ==========================================
+// MOSTRAR NOTAS
+// ==========================================
+function mostrarNotas() {
+  let html = "";
+
+  datosGlobal.notas.forEach(nota => {
+    html += `
+      <div class="card-app">
+        <h3>${nota.materia}</h3>
+        <p>Nota: <strong>${nota.nota}</strong></p>
+      </div>
+    `;
+  });
+
+  document.getElementById("contenido").innerHTML = html;
+}
+
+// ==========================================
+// MOSTRAR DISCIPLINA
+// ==========================================
+function mostrarDisciplina() {
+  let html = "";
+
+  if (!datosGlobal.disciplina.length) {
+    html = `
+      <div class="card-app">
+        Sin registros disciplinarios.
+      </div>
+    `;
+  } else {
+    datosGlobal.disciplina.forEach(registro => {
+      html += `
+        <div class="card-app">
+          <p>📅 ${registro.fecha}</p>
+          <p>${registro.detalle}</p>
+        </div>
+      `;
+    });
+  }
+
+  document.getElementById("contenido").innerHTML = html;
 }
