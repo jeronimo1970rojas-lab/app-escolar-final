@@ -18,17 +18,7 @@
 
 <div id="app">
   <div class="view view-main"></div>
- <script>
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('./sw.js')
-    .then(function(registration) {
-      console.log('Service Worker registrado correctamente:', registration.scope);
-    })
-    .catch(function(error) {
-      console.error('Error al registrar Service Worker:', error);
-    });
-}
-</script>
+
   <script>
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('./service-worker.js')
