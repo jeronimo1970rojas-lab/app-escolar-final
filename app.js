@@ -1,113 +1,91 @@
-// Elimina TODO el contenido de app.js
-// y reemplázalo por este código completo.
+// ===============================
+// PRE-PROMO "B" CBSC - APP ESCOLAR
+// Notificaciones Locales PWA
+// ===============================
+
 let ultimaCantidadAvisos = 0;
 let ultimaCantidadNotas = 0;
 let ultimaCantidadDisciplina = 0;
+let intervaloNotificaciones = null;
+
 function mostrarNotificacion(titulo, mensaje) {
   if (!('Notification' in window)) return;
+  if (Notification.permission !== 'granted') return;
 
-  if (Notification.permission === 'granted') {
-    navigator.serviceWorker.ready.then(function(registration) {
-      registration.showNotification(titulo, {
-        body: mensaje,
-        icon: './icon-192.png',
-        badge: './icon-192.png',
-        vibrate: [200, 100, 200],
-        tag: 'app-escolar',
-        renotify: true
-      });
+  navigator.serviceWorker.ready.then(function(registration) {
+    registration.showNotification(titulo, {
+      body: mensaje,
+      icon: './icon-192.png',
+      badge: './icon-192.png',
+      vibrate: [200, 100, 200],
+      tag: 'app-escolar'
     });
-  }
-}
-if ('Notification' in window) {
-  Notification.requestPermission().then(function(permission) {
-    console.log('Permiso:', permission);
-
-    if (permission === 'granted') {
-      setTimeout(function() {
-        mostrarNotificacion(
-          'PRE-PROMO B CBSC',
-          'Notificaciones activadas correctamente'
-        );
-      }, 3000);
-    }
   });
 }
+
 var app = new Framework7({
   el: '#app',
+
   routes: [
     {
-  path: '/',
-  content: `
-    <div class="page no-navbar">
-      <div class="page-content" style="
-        background: linear-gradient(135deg,#1565c0,#42a5f5);
-        height: 100vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        align-items: center;
-        padding: 25px 20px 35px;
-        box-sizing: border-box;
-        text-align: center;
-        color: white;
-        overflow: hidden;
-      ">
-
-        <div>
-          <img src="./logo.png" style="
-            width: 110px;
-            height: 110px;
-            object-fit: contain;
-            margin-bottom: 15px;
+      path: '/',
+      content: `
+        <div class="page no-navbar">
+          <div class="page-content" style="
+            background: linear-gradient(135deg,#1565c0,#42a5f5);
+            height: 100vh;
+            display:flex;
+            flex-direction:column;
+            justify-content:space-between;
+            align-items:center;
+            padding:25px 20px 35px;
+            box-sizing:border-box;
+            text-align:center;
+            color:white;
+            overflow:hidden;
           ">
+            <div>
+              <img src="./logo.png" style="
+                width:110px;
+                height:110px;
+                object-fit:contain;
+                margin-bottom:15px;
+              ">
 
-          <h1 style="
-            margin: 0;
-            font-size: 28px;
-            font-weight: bold;
-          ">
-            PRE-PROMO "B"
-          </h1>
+              <h1 style="margin:0;font-size:28px;font-weight:bold;">
+                PRE-PROMO "B"
+              </h1>
 
-          <h2 style="
-            margin: 8px 0 0;
-            font-size: 22px;
-            font-weight: normal;
-          ">
-            CBSC
-          </h2>
+              <h2 style="margin:8px 0 0;font-size:22px;">
+                CBSC
+              </h2>
+            </div>
+
+            <div>
+              <img src="./profesor.jpg" style="
+                width:150px;
+                height:150px;
+                border-radius:50%;
+                object-fit:cover;
+                border:4px solid white;
+                box-shadow:0 6px 18px rgba(0,0,0,0.3);
+              ">
+
+              <p style="margin-top:20px;font-size:17px;">
+                ¡Bienvenidos al Sistema Académico!
+              </p>
+            </div>
+          </div>
         </div>
-
-        <div>
-          <img src="./profesor.jpg" style="
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 4px solid white;
-            box-shadow: 0 6px 18px rgba(0,0,0,0.3);
-          ">
-
-          <p style="
-            margin-top: 20px;
-            font-size: 17px;
-          ">
-            ¡Bienvenidos al Sistema Académico!
-          </p>
-        </div>
-
-      </div>
-    </div>
-  `,
-  on: {
-    pageAfterIn: function () {
-      setTimeout(function () {
-        mainView.router.navigate('/avisos/');
-      }, 3000);
-    }
-  }
-},
+      `,
+      on: {
+        pageAfterIn: function() {
+          setTimeout(function() {
+            mainView.router.navigate('/avisos/');
+          }, 3000);
+        }
+      }
+    },
 
     {
       path: '/avisos/',
@@ -150,15 +128,14 @@ var app = new Framework7({
             <button
               class="button button-fill button-large"
               style="width:100%;"
-              onclick="irLogin()"
-            >
+              onclick="irLogin()">
               Ingresar
             </button>
           </div>
         </div>
       `,
       on: {
-        pageAfterIn: function () {
+        pageAfterIn: function() {
           cargarAvisos();
         }
       }
@@ -193,8 +170,7 @@ var app = new Framework7({
                       <input
                         type="text"
                         id="usuario"
-                        placeholder="Ingrese su usuario"
-                      >
+                        placeholder="Ingrese su usuario">
                     </div>
                   </div>
                 </li>
@@ -205,8 +181,7 @@ var app = new Framework7({
                       <input
                         type="password"
                         id="password"
-                        placeholder="Ingrese su contraseña"
-                      >
+                        placeholder="Ingrese su contraseña">
                     </div>
                   </div>
                 </li>
@@ -216,8 +191,7 @@ var app = new Framework7({
             <button
               class="button button-fill button-large"
               style="margin-top:30px;"
-              onclick="login()"
-            >
+              onclick="login()">
               Ingresar
             </button>
           </div>
@@ -227,87 +201,80 @@ var app = new Framework7({
 
     {
       path: '/panel/',
-  content: `
-    <div class="page">
+      content: `
+        <div class="page">
+          <div style="
+            background:#2196f3;
+            color:white;
+            padding:20px;
+            text-align:center;
+          ">
+            <h2 id="nombreAlumno"></h2>
+          </div>
 
-      <div style="
-        background:#2196f3;
-        color:white;
-        padding:20px;
-        text-align:center;
-      ">
-        <h2 id="nombreAlumno"></h2>
-      </div>
+          <div style="
+            position:fixed;
+            top:85px;
+            left:0;
+            width:100%;
+            padding:15px;
+            background:#fff;
+            display:grid;
+            grid-template-columns:1fr 1fr;
+            gap:10px;
+            box-sizing:border-box;
+            z-index:999;
+            box-shadow:0 3px 10px rgba(0,0,0,0.1);
+          ">
+            <button class="button button-fill" onclick="mostrarNotas()">
+              📘 Notas
+            </button>
 
-      <div style="
-        position:fixed;
-        top:85px;
-        left:0;
-        width:100%;
-        padding:15px;
-        background:#ffffff;
-        display:grid;
-        grid-template-columns:1fr 1fr;
-        gap:10px;
-        box-sizing:border-box;
-        z-index:999;
-        box-shadow:0 3px 10px rgba(0,0,0,0.1);
-      ">
-        <button
-          class="button button-fill"
-          onclick="mostrarNotas()"
-        >
-          📘 Notas
-        </button>
+            <button
+              class="button button-fill button-color-orange"
+              onclick="mostrarDisciplina()">
+              ⚠️ Disciplina
+            </button>
+          </div>
 
-        <button
-          class="button button-fill button-color-orange"
-          onclick="mostrarDisciplina()"
-        >
-          ⚠️ Disciplina
-        </button>
-      </div>
-
-      <div class="page-content" style="
-        padding:95px 15px 20px;
-        background:#f5f5f5;
-      ">
-        <div id="contenido"></div>
-      </div>
-
-    </div>
-  `,
-  on: {
-    pageAfterIn: function () {
-      cargarPanel();
-    }
-  }
+          <div class="page-content" style="
+            padding:95px 15px 20px;
+            background:#f5f5f5;
+          ">
+            <div id="contenido"></div>
+          </div>
+        </div>
+      `,
+      on: {
+        pageAfterIn: function() {
+          cargarPanel();
+        }
+      }
     }
   ]
 });
-// Solicitar permiso para notificaciones
+
+// Solicitar permiso
 if ('Notification' in window) {
   Notification.requestPermission().then(function(permission) {
-    console.log('Permiso de notificaciones:', permission);
+    console.log('Permiso:', permission);
+
+    if (permission === 'granted') {
+      setTimeout(function() {
+        mostrarNotificacion(
+          'PRE-PROMO B CBSC',
+          'Notificaciones activadas correctamente'
+        );
+      }, 3000);
+    }
   });
 }
-setTimeout(function() {
-  mostrarNotificacion(
-    'PRUEBA EXITOSA',
-    'Si ves esto, las notificaciones funcionan'
-  );
-}, 5000);
-setTimeout(function() {
-  mostrarNotificacion(
-    'PRE-PROMO B CBSC',
-    'Las notificaciones están activadas correctamente.'
-  );
-}, 5000);
+
 var mainView = app.views.create('.view-main', {
   url: '/'
 });
 
-var url = 'https://script.google.com/macros/s/AKfycbxrCw1AN5qyuQDEgrJBo4YH1KovwvghDm4prW8M5UQW7Uq9xEuIOLqXIrEiDfuhdDwb/exec';
+var url = 'TU_URL_DE_GOOGLE_APPS_SCRIPT';
 var datosGlobal = null;
 
 function irLogin() {
@@ -316,64 +283,52 @@ function irLogin() {
 
 function cargarAvisos() {
   fetch(url + '?accion=avisos')
-    .then(response => response.json())
+    .then(r => r.json())
     .then(data => {
-      var html = '';
+      let html = '';
 
       if (data.length === 0) {
         html = '<div class="card-app">No hay avisos disponibles.</div>';
       } else {
-        data.forEach(function (aviso) {
+        data.forEach(function(aviso) {
           html += `
             <div class="card-app">
-              <p style="
-                color:#1565c0;
-                font-weight:bold;
-                margin-bottom:10px;
-              ">
+              <p style="color:#1565c0;font-weight:bold;">
                 📅 ${aviso.fecha}
               </p>
-
-              <h3 style="margin:0;">
-                ${aviso.mensaje}
-              </h3>
+              <h3>${aviso.mensaje}</h3>
             </div>
           `;
         });
       }
 
       document.getElementById('listaAvisos').innerHTML = html;
-    })
-    .catch(function () {
-      document.getElementById('listaAvisos').innerHTML =
-        '<div class="card-app">Error al cargar avisos.</div>';
     });
 }
 
 function login() {
-  var usuario = document.getElementById('usuario').value.trim();
-  var password = document.getElementById('password').value.trim();
+  const usuario = document.getElementById('usuario').value.trim();
+  const password = document.getElementById('password').value.trim();
 
   fetch(
     url +
     '?usuario=' + encodeURIComponent(usuario) +
     '&password=' + encodeURIComponent(password)
   )
-    .then(response => response.json())
+    .then(r => r.json())
     .then(data => {
       if (data.status === 'ok') {
         datosGlobal = data;
+
         localStorage.setItem('usuario', usuario);
-localStorage.setItem('password', password);
-localStorage.setItem('nombre', data.nombre);
+        localStorage.setItem('password', password);
+
         mainView.router.navigate('/panel/');
       } else {
         app.dialog.alert('Usuario o contraseña incorrectos');
       }
     })
-    .catch(function () {
-      app.dialog.alert('Error de conexión');
-    });
+    .catch(() => app.dialog.alert('Error de conexión'));
 }
 
 function cargarPanel() {
@@ -382,32 +337,34 @@ function cargarPanel() {
   document.getElementById('nombreAlumno').textContent =
     datosGlobal.nombre;
 
-  // Mostrar notas al ingresar
   mostrarNotas();
+
   ultimaCantidadNotas = datosGlobal.notas.length;
-ultimaCantidadDisciplina = datosGlobal.disciplina.length;
+  ultimaCantidadDisciplina = datosGlobal.disciplina.length;
 
-fetch(url + '?accion=avisos')
-  .then(r => r.json())
-  .then(data => {
-    ultimaCantidadAvisos = data.length;
-  });
+  fetch(url + '?accion=avisos')
+    .then(r => r.json())
+    .then(data => {
+      ultimaCantidadAvisos = data.length;
+    });
 
-  // Iniciar monitoreo automático
-  setInterval(function () {
-    const usuario = localStorage.getItem('usuario');
+  if (intervaloNotificaciones) {
+    clearInterval(intervaloNotificaciones);
+  }
 
+  const usuario = localStorage.getItem('usuario');
+
+  intervaloNotificaciones = setInterval(function() {
     verificarAvisos();
     verificarNotas(usuario);
     verificarDisciplina(usuario);
-
   }, 60000);
 }
 
 function mostrarNotas() {
-  var html = '';
+  let html = '';
 
-  datosGlobal.notas.forEach(function (nota) {
+  datosGlobal.notas.forEach(function(nota) {
     html += `
       <div class="card-app">
         <h3>${nota.materia}</h3>
@@ -420,7 +377,7 @@ function mostrarNotas() {
 }
 
 function mostrarDisciplina() {
-  var html = '';
+  let html = '';
 
   if (!datosGlobal.disciplina.length) {
     html = `
@@ -429,7 +386,7 @@ function mostrarDisciplina() {
       </div>
     `;
   } else {
-    datosGlobal.disciplina.forEach(function (item) {
+    datosGlobal.disciplina.forEach(function(item) {
       html += `
         <div class="card-app">
           <p><strong>📅 ${item.fecha}</strong></p>
@@ -441,6 +398,7 @@ function mostrarDisciplina() {
 
   document.getElementById('contenido').innerHTML = html;
 }
+
 function verificarAvisos() {
   fetch(url + '?accion=avisos')
     .then(r => r.json())
@@ -460,55 +418,58 @@ function verificarAvisos() {
       ultimaCantidadAvisos = data.length;
     });
 }
-      
+
 function verificarNotas(usuario) {
   fetch(
     url +
     '?usuario=' + encodeURIComponent(usuario) +
-    '&password=' + encodeURIComponent(localStorage.getItem('password'))
+    '&password=' + encodeURIComponent(
+      localStorage.getItem('password')
+    )
   )
     .then(r => r.json())
     .then(data => {
+      if (
+        data.status === 'ok' &&
+        ultimaCantidadNotas > 0 &&
+        data.notas.length > ultimaCantidadNotas
+      ) {
+        mostrarNotificacion(
+          'Nueva Nota Registrada',
+          'Tus calificaciones fueron actualizadas.'
+        );
+      }
+
       if (data.status === 'ok') {
-        if (
-          ultimaCantidadNotas > 0 &&
-          data.notas.length > ultimaCantidadNotas
-        ) {
-          const ultima = data.notas[data.notas.length - 1];
-
-          mostrarNotificacion(
-  'Nueva Nota Registrada',
-  'Tus calificaciones han sido actualizadas.'
-);
-        }
-
         ultimaCantidadNotas = data.notas.length;
       }
     });
 }
+
 function verificarDisciplina(usuario) {
   fetch(
     url +
     '?usuario=' + encodeURIComponent(usuario) +
-    '&password=' + encodeURIComponent(localStorage.getItem('password'))
+    '&password=' + encodeURIComponent(
+      localStorage.getItem('password')
+    )
   )
     .then(r => r.json())
     .then(data => {
+      if (
+        data.status === 'ok' &&
+        ultimaCantidadDisciplina > 0 &&
+        data.disciplina.length > ultimaCantidadDisciplina
+      ) {
+        mostrarNotificacion(
+          'Nuevo Registro Disciplinario',
+          'Se agregó una nueva observación.'
+        );
+      }
+
       if (data.status === 'ok') {
-        if (
-          ultimaCantidadDisciplina > 0 &&
-          data.disciplina.length > ultimaCantidadDisciplina
-        ) {
-          const ultima = data.disciplina[data.disciplina.length - 1];
-
-         mostrarNotificacion(
-  'Nuevo Registro Disciplinario',
-  'Se agregó una observación a tu historial.'
-);
-        }
-
-        ultimaCantidadDisciplina = data.disciplina.length;
+        ultimaCantidadDisciplina =
+          data.disciplina.length;
       }
     });
 }
-
