@@ -1,10 +1,8 @@
 self.addEventListener('install', function(event) {
-  console.log('Service Worker instalado');
   self.skipWaiting();
 });
 
 self.addEventListener('activate', function(event) {
-  console.log('Service Worker activado');
   event.waitUntil(self.clients.claim());
 });
 
@@ -16,14 +14,14 @@ self.addEventListener('notificationclick', function(event) {
       type: 'window',
       includeUncontrolled: true
     }).then(function(clientList) {
-      for (let client of clientList) {
-        if (client.url && 'focus' in client) {
+      for (const client of clientList) {
+        if ('focus' in client) {
           return client.focus();
         }
       }
 
       if (clients.openWindow) {
-        return clients.openWindow('./');
+        return clients.openWindow('/');
       }
     })
   );
