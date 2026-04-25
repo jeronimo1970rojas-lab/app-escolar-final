@@ -29,6 +29,17 @@ if ('serviceWorker' in navigator) {
     });
 }
 </script>
+  <script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('./service-worker.js')
+    .then(function(registration) {
+      console.log('Service Worker registrado correctamente');
+    })
+    .catch(function(error) {
+      console.error('Error registrando Service Worker:', error);
+    });
+}
+</script>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/framework7@7/framework7-bundle.min.js"></script>
