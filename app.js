@@ -417,14 +417,20 @@ function verificarAvisos() {
   fetch(url + '?accion=avisos')
     .then(r => r.json())
     .then(data => {
-      if (ultimaCantidadAvisos > 0 && data.length > ultimaCantidadAvisos) {
+      if (
+        ultimaCantidadAvisos > 0 &&
+        data.length > ultimaCantidadAvisos
+      ) {
         const ultimo = data[data.length - 1];
 
-        if (nuevaCantidad > ultimaCantidadAvisos) {
-  mostrarNotificacion(
-    'Nuevo Aviso General',
-    'Se publicó un nuevo aviso en el sistema.'
-  );
+        mostrarNotificacion(
+          'Nuevo Aviso General',
+          ultimo.mensaje
+        );
+      }
+
+      ultimaCantidadAvisos = data.length;
+    });
 }
       }
 
