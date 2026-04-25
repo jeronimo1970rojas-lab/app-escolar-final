@@ -4,18 +4,34 @@ let ultimaCantidadAvisos = 0;
 let ultimaCantidadNotas = 0;
 let ultimaCantidadDisciplina = 0;
 function mostrarNotificacion(titulo, mensaje) {
+  if (!('Notification' in window)) return;
+
   if (Notification.permission === 'granted') {
-    navigator.serviceWorker.getRegistration().then(function(reg) {
-      if (reg) {
-        reg.showNotification(titulo, {
-          body: mensaje,
-          icon: './icon-192.png',
-          badge: './icon-192.png',
-          vibrate: [200, 100, 200]
-        });
-      }
+    navigator.serviceWorker.ready.then(function(registration) {
+      registration.showNotification(titulo, {
+        body: mensaje,
+        icon: './icon-192.png',
+        badge: './icon-192.png',
+        vibrate: [200, 100, 200],
+        tag: 'app-escolar',
+        renotify: true
+      });
     });
   }
+}
+if ('Notification' in window) {
+  Notification.requestPermission().then(function(permission) {
+    console.log('Permiso:', permission);
+
+    if (permission === 'granted') {
+      setTimeout(function() {
+        mostrarNotificacion(
+          'PRE-PROMO B CBSC',
+          'Notificaciones activadas correctamente'
+        );
+      }, 3000);
+    }
+  });
 }
 var app = new Framework7({
   el: '#app',
@@ -275,6 +291,18 @@ if ('Notification' in window) {
     console.log('Permiso de notificaciones:', permission);
   });
 }
+setTimeout(function() {
+  mostrarNotificacion(
+    'PRUEBA EXITOSA',
+    'Si ves esto, las notificaciones funcionan'
+  );
+}, 5000);
+setTimeout(function() {
+  mostrarNotificacion(
+    'PRE-PROMO B CBSC',
+    'Las notificaciones están activadas correctamente.'
+  );
+}, 5000);
 var mainView = app.views.create('.view-main', {
   url: '/'
 });
@@ -413,14 +441,6 @@ function mostrarDisciplina() {
 
   document.getElementById('contenido').innerHTML = html;
 }
-function mostrarNotificacion(titulo, mensaje) {
-  if (Notification.permission === "granted") {
-    new Notification(titulo, {
-      body: mensaje,
-      icon: "./icon-192.png"
-    });
-  }
-}
 function verificarAvisos() {
   fetch(url + '?accion=avisos')
     .then(r => r.json())
@@ -440,11 +460,7 @@ function verificarAvisos() {
       ultimaCantidadAvisos = data.length;
     });
 }
-      }
-
-      ultimaCantidadAvisos = data.length;
-    });
-}
+      
 function verificarNotas(usuario) {
   fetch(
     url +
