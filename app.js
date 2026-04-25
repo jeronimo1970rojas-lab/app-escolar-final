@@ -321,6 +321,9 @@ function login() {
     .then(data => {
       if (data.status === 'ok') {
         datosGlobal = data;
+        localStorage.setItem('usuario', usuario);
+localStorage.setItem('password', password);
+localStorage.setItem('nombre', data.nombre);
         mainView.router.navigate('/panel/');
       } else {
         app.dialog.alert('Usuario o contraseña incorrectos');
@@ -397,31 +400,38 @@ function mostrarNotificacion(titulo, mensaje) {
   }
 }
 function verificarAvisos() {
-  fetch(API_URL + '?accion=avisos')
+  fetch(url + '?accion=avisos')
     .then(r => r.json())
     .then(data => {
       if (ultimaCantidadAvisos > 0 && data.length > ultimaCantidadAvisos) {
         const ultimo = data[data.length - 1];
+
         mostrarNotificacion(
-          "Nuevo Aviso Escolar",
+          'Nuevo Aviso Escolar',
           ultimo.mensaje
         );
       }
+
       ultimaCantidadAvisos = data.length;
     });
 }
 function verificarNotas(usuario) {
-  fetch(API_URL + '?usuario=' + usuario + '&password=' + localStorage.getItem('password'))
+  fetch(
+    url +
+    '?usuario=' + encodeURIComponent(usuario) +
+    '&password=' + encodeURIComponent(localStorage.getItem('password'))
+  )
     .then(r => r.json())
     .then(data => {
       if (data.status === 'ok') {
-        if (ultimaCantidadNotas > 0 &&
-            data.notas.length > ultimaCantidadNotas) {
-
+        if (
+          ultimaCantidadNotas > 0 &&
+          data.notas.length > ultimaCantidadNotas
+        ) {
           const ultima = data.notas[data.notas.length - 1];
 
           mostrarNotificacion(
-            "Nueva Nota Registrada",
+            'Nueva Nota Registrada',
             ultima.materia + ': ' + ultima.nota
           );
         }
@@ -431,17 +441,22 @@ function verificarNotas(usuario) {
     });
 }
 function verificarDisciplina(usuario) {
-  fetch(API_URL + '?usuario=' + usuario + '&password=' + localStorage.getItem('password'))
+  fetch(
+    url +
+    '?usuario=' + encodeURIComponent(usuario) +
+    '&password=' + encodeURIComponent(localStorage.getItem('password'))
+  )
     .then(r => r.json())
     .then(data => {
       if (data.status === 'ok') {
-        if (ultimaCantidadDisciplina > 0 &&
-            data.disciplina.length > ultimaCantidadDisciplina) {
-
+        if (
+          ultimaCantidadDisciplina > 0 &&
+          data.disciplina.length > ultimaCantidadDisciplina
+        ) {
           const ultima = data.disciplina[data.disciplina.length - 1];
 
           mostrarNotificacion(
-            "Nueva Observación",
+            'Nueva Observación',
             ultima.detalle
           );
         }
