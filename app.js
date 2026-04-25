@@ -3,6 +3,20 @@
 let ultimaCantidadAvisos = 0;
 let ultimaCantidadNotas = 0;
 let ultimaCantidadDisciplina = 0;
+function mostrarNotificacion(titulo, mensaje) {
+  if (Notification.permission === 'granted') {
+    navigator.serviceWorker.getRegistration().then(function(reg) {
+      if (reg) {
+        reg.showNotification(titulo, {
+          body: mensaje,
+          icon: './icon-192.png',
+          badge: './icon-192.png',
+          vibrate: [200, 100, 200]
+        });
+      }
+    });
+  }
+}
 var app = new Framework7({
   el: '#app',
   routes: [
@@ -406,10 +420,12 @@ function verificarAvisos() {
       if (ultimaCantidadAvisos > 0 && data.length > ultimaCantidadAvisos) {
         const ultimo = data[data.length - 1];
 
-        mostrarNotificacion(
-          'Nuevo Aviso Escolar',
-          ultimo.mensaje
-        );
+        if (nuevaCantidad > ultimaCantidadAvisos) {
+  mostrarNotificacion(
+    'Nuevo Aviso General',
+    'Se publicó un nuevo aviso en el sistema.'
+  );
+}
       }
 
       ultimaCantidadAvisos = data.length;
@@ -431,9 +447,9 @@ function verificarNotas(usuario) {
           const ultima = data.notas[data.notas.length - 1];
 
           mostrarNotificacion(
-            'Nueva Nota Registrada',
-            ultima.materia + ': ' + ultima.nota
-          );
+  'Nueva Nota Registrada',
+  'Tus calificaciones han sido actualizadas.'
+);
         }
 
         ultimaCantidadNotas = data.notas.length;
@@ -455,10 +471,10 @@ function verificarDisciplina(usuario) {
         ) {
           const ultima = data.disciplina[data.disciplina.length - 1];
 
-          mostrarNotificacion(
-            'Nueva Observación',
-            ultima.detalle
-          );
+         mostrarNotificacion(
+  'Nuevo Registro Disciplinario',
+  'Se agregó una observación a tu historial.'
+);
         }
 
         ultimaCantidadDisciplina = data.disciplina.length;
