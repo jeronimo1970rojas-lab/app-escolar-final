@@ -356,6 +356,14 @@ function cargarPanel() {
 
   // Mostrar notas al ingresar
   mostrarNotas();
+  ultimaCantidadNotas = datosGlobal.notas.length;
+ultimaCantidadDisciplina = datosGlobal.disciplina.length;
+
+fetch(url + '?accion=avisos')
+  .then(r => r.json())
+  .then(data => {
+    ultimaCantidadAvisos = data.length;
+  });
 
   // Iniciar monitoreo automático
   setInterval(function () {
