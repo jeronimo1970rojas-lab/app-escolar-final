@@ -112,9 +112,7 @@ var app = new Framework7({
             <div id="listaAvisos">
               <p style="text-align:center;">Cargando avisos...</p>
             </div>
-            <button onclick="mostrarNotificacion('Prueba','Notificación funcionando')">
-  Probar Notificación
-</button>
+            
           </div>
 
           <div style="
