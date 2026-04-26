@@ -277,7 +277,7 @@ var mainView = app.views.create('.view-main', {
   url: '/'
 });
 
-var url = 'TU_URL_DE_GOOGLE_APPS_SCRIPT';
+var url = 'https://script.google.com/macros/s/AKfycbzgbriFKF58WKWG9H7YdnpY9R1WnSaD8fkfnWlnBVzvecO5ZWdNPx9bJDqgE1yEPYCT/exec';
 var datosGlobal = null;
 
 function irLogin() {
