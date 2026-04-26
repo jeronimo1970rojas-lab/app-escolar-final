@@ -1,19 +1,47 @@
-self.addEventListener('install', function(event) {
+const CACHE_NAME = 'pre-promo-b-v1';
+
+const urlsToCache = [
+  './',
+  './index.html',
+  './app.js',
+  './style.css',
+  './manifest.json',
+  './logo.png',
+  './profesor.jpg',
+  './icon-192.png',
+  './icon-512.png'
+];
+
+self.addEventListener('install', event => {
   self.skipWaiting();
+
+  event.waitUntil(
+    caches.open(CACHE_NAME)
+      .then(cache => cache.addAll(urlsToCache))
+  );
 });
 
-self.addEventListener('activate', function(event) {
-  event.waitUntil(self.clients.claim());
+self.addEventListener('activate', event => {
+  event.waitUntil(
+    self.clients.claim()
+  );
 });
 
-self.addEventListener('notificationclick', function(event) {
+self.addEventListener('fetch', event => {
+  event.respondWith(
+    caches.match(event.request)
+      .then(response => response || fetch(event.request))
+  );
+});
+
+self.addEventListener('notificationclick', event => {
   event.notification.close();
 
   event.waitUntil(
     clients.matchAll({
       type: 'window',
       includeUncontrolled: true
-    }).then(function(clientList) {
+    }).then(clientList => {
       for (const client of clientList) {
         if ('focus' in client) {
           return client.focus();
@@ -21,7 +49,7 @@ self.addEventListener('notificationclick', function(event) {
       }
 
       if (clients.openWindow) {
-        return clients.openWindow('/');
+        return clients.openWindow('./');
       }
     })
   );
