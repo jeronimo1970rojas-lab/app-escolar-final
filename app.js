@@ -275,7 +275,7 @@ var mainView = app.views.create('.view-main', {
   url: '/'
 });
 
-var url = 'https://script.google.com/macros/s/AKfycbzgbriFKF58WKWG9H7YdnpY9R1WnSaD8fkfnWlnBVzvecO5ZWdNPx9bJDqgE1yEPYCT/exec';
+var url = 'https://script.google.com/macros/s/AKfycbwA1j83cS_PtBV70mNDDl67_wx9tSUZvlSyhKwrADDXlgbBzq5J1WAgQhze7Oc0IbHU/exec';
 var datosGlobal = null;
 
 function irLogin() {
