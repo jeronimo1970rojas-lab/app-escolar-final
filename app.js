@@ -70,7 +70,7 @@ var mainView = app.views.create('.view-main', {
   url: '/'
 });
 
-var url = 'TU_URL_DE_GOOGLE_APPS_SCRIPT';
+var url = 'https://script.google.com/macros/s/AKfycbwA1j83cS_PtBV70mNDDl67_wx9tSUZvlSyhKwrADDXlgbBzq5J1WAgQhze7Oc0IbHU/exec';
 
 var datosGlobal = null;
 
