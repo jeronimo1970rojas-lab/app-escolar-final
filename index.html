@@ -9,33 +9,25 @@
   <meta name="theme-color" content="#1565c0">
   <link rel="apple-touch-icon" href="./icon-192.png">
 
-  <link rel="stylesheet"
-        href="https://unpkg.com/framework7/framework7-bundle.min.css">
-
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/framework7@8/framework7-bundle.min.css">
   <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-
   <div id="app">
     <div class="view view-main"></div>
   </div>
 
-  <script defer src="https://unpkg.com/framework7/framework7-bundle.min.js"></script>
-  <script defer src="./app.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/framework7@8/framework7-bundle.min.js"></script>
+  <script src="./app.js"></script>
 
   <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', function () {
+    window.addEventListener('load', function () {
+      if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('./sw.js')
-          .then(function (registration) {
-            console.log('Service Worker registrado:', registration.scope);
-          })
-          .catch(function (error) {
-            console.error('Error al registrar Service Worker:', error);
-          });
-      });
-    }
+          .then(reg => console.log('SW registrado:', reg.scope))
+          .catch(err => console.error('Error SW:', err));
+      }
+    });
   </script>
-
 </body>
 </html>
