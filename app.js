@@ -70,7 +70,7 @@ var mainView = app.views.create('.view-main', {
   url: '/'
 });
 
-var url = 'https://script.google.com/macros/s/AKfycbwA1j83cS_PtBV70mNDDl67_wx9tSUZvlSyhKwrADDXlgbBzq5J1WAgQhze7Oc0IbHU/exec';
+var url = 'https://script.google.com/macros/s/AKfycbz5iXQQ2rpsODlp4Q40LeuHHZ7dHy5AsMEubr8zoz7GTkhDLpHDr_3_SZZ-pSCRjaXt/exec';
 
 var datosGlobal = null;
 
