@@ -1,40 +1,16 @@
 <!DOCTYPE html>
-<html lang="es">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>App Escolar</title>
-
-  <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#1565c0">
-  <link rel="apple-touch-icon" href="icon-192.png">
-
-  <link rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/framework7@7/framework7-bundle.min.css">
-  <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8">
+  <title>Prueba</title>
 </head>
 <body>
 
-  <div id="app">
-    <div class="view view-main"></div>
-  </div>
+<h1>APP FUNCIONANDO</h1>
 
-  <script src="https://cdn.jsdelivr.net/npm/framework7@7/framework7-bundle.min.js"></script>
-  <script src="app.js"></script>
-
-  <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', function() {
-        navigator.serviceWorker.register('./sw.js')
-          .then(function(reg) {
-            console.log('Service Worker registrado:', reg.scope);
-          })
-          .catch(function(err) {
-            console.error('Error registrando Service Worker:', err);
-          });
-      });
-    }
-  </script>
+<script>
+  console.log("JS funcionando correctamente");
+</script>
 
 </body>
 </html>
