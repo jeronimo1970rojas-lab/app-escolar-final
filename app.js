@@ -2,67 +2,143 @@ var app = new Framework7({
   el: '#app',
 
   routes: [
-    {
-      path: '/',
-      content: `
-        <div class="page">
-          <div class="page-content" style="text-align:center;padding-top:80px;">
-            <h1>App Escolar</h1>
-            <button class="button button-fill" onclick="irLogin()">
-              Ingresar
-            </button>
-          </div>
+   // ==========================================
+// REEMPLAZAR SOLO LA RUTA "/"
+// ==========================================
+{
+  path: '/',
+  content: `
+    <div class="page no-navbar">
+      <div class="page-content" style="
+        background: linear-gradient(135deg,#1565c0,#42a5f5);
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        padding: 25px 20px 35px;
+        box-sizing: border-box;
+        text-align: center;
+        color: white;
+        overflow: hidden;
+      ">
+
+        <div>
+          <img src="./logo.png" style="
+            width: 110px;
+            height: 110px;
+            object-fit: contain;
+            margin-bottom: 15px;
+          ">
+
+          <h1 style="
+            margin: 0;
+            font-size: 28px;
+            font-weight: bold;
+          ">
+            PRE-PROMO "B"
+          </h1>
+
+          <h2 style="
+            margin: 8px 0 0;
+            font-size: 22px;
+            font-weight: normal;
+          ">
+            CBSC
+          </h2>
         </div>
-      `
-    },
 
-    {
-      path: '/login/',
-      content: `
-        <div class="page">
-          <div class="page-content" style="padding:20px;">
-            <h2>Login</h2>
+        <div>
+          <img src="./profesor.jpg" style="
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid white;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.3);
+          ">
 
-            <input id="usuario" type="text" placeholder="Usuario"><br><br>
-            <input id="password" type="password" placeholder="Contraseña"><br><br>
-
-            <button class="button button-fill" onclick="login()">
-              Ingresar
-            </button>
-          </div>
+          <p style="
+            margin-top: 20px;
+            font-size: 17px;
+          ">
+            ¡Bienvenidos al Sistema Académico!
+          </p>
         </div>
-      `
-    },
 
-    {
-      path: '/panel/',
-      content: `
-        <div class="page">
-          <div style="background:#2196f3;color:white;padding:20px;text-align:center;">
-            <h2 id="nombreAlumno"></h2>
-          </div>
-
-          <div class="page-content">
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:10px;">
-              <button class="button button-fill" onclick="mostrarNotas()">
-                📘 Notas
-              </button>
-
-              <button class="button button-fill color-red" onclick="mostrarDisciplina()">
-                ⚠️ Disciplina
-              </button>
-            </div>
-
-            <div id="contenido" style="padding:10px;"></div>
-          </div>
-        </div>
-      `,
-      on: {
-        pageAfterIn: function () {
-          cargarPanel();
-        }
-      }
+      </div>
+    </div>
+  `,
+  on: {
+    pageAfterIn: function () {
+      setTimeout(function () {
+        mainView.router.navigate('/avisos/');
+      }, 3000);
     }
+  }
+},
+
+// ==========================================
+// REEMPLAZAR SOLO LA RUTA "/panel/"
+// ==========================================
+{
+  path: '/panel/',
+  content: `
+    <div class="page">
+
+      <div style="
+        background:#2196f3;
+        color:white;
+        padding:20px;
+        text-align:center;
+      ">
+        <h2 id="nombreAlumno"></h2>
+      </div>
+
+      <div style="
+        position:fixed;
+        top:85px;
+        left:0;
+        width:100%;
+        padding:15px;
+        background:#ffffff;
+        display:grid;
+        grid-template-columns:1fr 1fr;
+        gap:10px;
+        box-sizing:border-box;
+        z-index:999;
+        box-shadow:0 3px 10px rgba(0,0,0,0.1);
+      ">
+        <button
+          class="button button-fill"
+          onclick="mostrarNotas()"
+        >
+          📘 Notas
+        </button>
+
+        <button
+          class="button button-fill button-color-orange"
+          onclick="mostrarDisciplina()"
+        >
+          ⚠️ Disciplina
+        </button>
+      </div>
+
+      <div class="page-content" style="
+        padding:95px 15px 20px;
+        background:#f5f5f5;
+      ">
+        <div id="contenido"></div>
+      </div>
+
+    </div>
+  `,
+  on: {
+    pageAfterIn: function () {
+      cargarPanel();
+    }
+  }
+}
   ]
 });
 
