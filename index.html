@@ -1,1 +1,47 @@
-<!DOCTYPE html> <html> <head> <meta charset="utf-8"> <title>App Escolar</title> <meta name="viewport" content="width=device-width, initial-scale=1"> <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/framework7@7/framework7-bundle.min.css"> <link rel="stylesheet" href="style.css"> </head> <body> <div id="app"> <div class="view view-main"></div> </div> <script src="https://cdn.jsdelivr.net/npm/framework7@7/framework7-bundle.min.js"></script> <script src="app.js"></script> </body> </html>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>App Escolar</title>
+
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/framework7@7/framework7-bundle.min.css">
+</head>
+<body>
+
+  <div id="app">
+    <div class="view view-main"></div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/framework7@7/framework7-bundle.min.js"></script>
+
+  <script>
+    var app = new Framework7();
+
+    var mainView = app.views.create('.view-main', {
+      url: '/'
+    });
+
+    mainView.router.navigate({
+      content: `
+        <div class="page">
+          <div class="navbar">
+            <div class="navbar-inner">
+              <div class="title">App Escolar</div>
+            </div>
+          </div>
+
+          <div class="page-content">
+            <div class="block text-align-center">
+              <h2>Bienvenido</h2>
+              <p>La app ya funciona correctamente</p>
+            </div>
+          </div>
+        </div>
+      `
+    });
+  </script>
+
+</body>
+</html>
