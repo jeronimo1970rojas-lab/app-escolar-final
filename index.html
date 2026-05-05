@@ -7,41 +7,180 @@
 
   <link rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/framework7@7/framework7-bundle.min.css">
+
+  <style>
+    .logo {
+      width: 120px;
+      margin-bottom: 10px;
+    }
+    .profesor {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-top: 15px;
+    }
+  </style>
 </head>
 <body>
 
-  <div id="app">
-    <div class="view view-main"></div>
+<div id="app">
+  <div class="view view-main"></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/framework7@7/framework7-bundle.min.js"></script>
+
+<script>
+var app = new Framework7();
+
+var mainView = app.views.create('.view-main', {
+  url: '/'
+});
+
+var URL = "PEGAR_AQUI_TU_URL_DE_GOOGLE_SHEETS";
+
+mainView.router.navigate({
+  content: `
+  <div class="page no-navbar">
+    <div class="page-content" style="
+      background: linear-gradient(135deg,#1565c0,#42a5f5);
+      height:100vh;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      align-items:center;
+      padding:20px;
+      color:white;
+      text-align:center;
+    ">
+
+      <div>
+        <img src="logo.png" class="logo">
+        <h2>PRE PROMO B</h2>
+        <h3>CBSC</h3>
+      </div>
+
+      <div>
+        <img src="profesor.jpg" class="profesor">
+        <p>Bienvenidos al sistema académico</p>
+      </div>
+
+    </div>
   </div>
+  `
+});
 
-  <script src="https://cdn.jsdelivr.net/npm/framework7@7/framework7-bundle.min.js"></script>
+setTimeout(() => {
+  cargarAvisos();
+}, 3000);
 
-  <script>
-    var app = new Framework7();
-
-    var mainView = app.views.create('.view-main', {
-      url: '/'
-    });
-
-    mainView.router.navigate({
-      content: `
-        <div class="page">
-          <div class="navbar">
-            <div class="navbar-inner">
-              <div class="title">App Escolar</div>
-            </div>
-          </div>
-
-          <div class="page-content">
-            <div class="block text-align-center">
-              <h2>Bienvenido</h2>
-              <p>La app ya funciona correctamente</p>
-            </div>
-          </div>
+function cargarAvisos(){
+  mainView.router.navigate({
+    content: `
+    <div class="page">
+      <div class="navbar">
+        <div class="navbar-inner">
+          <div class="title">Avisos</div>
         </div>
-      `
+      </div>
+
+      <div class="page-content" id="avisos">
+        <p style="text-align:center;">Cargando...</p>
+      </div>
+
+      <div style="position:fixed;bottom:0;width:100%;padding:10px;">
+        <button class="button button-fill" onclick="irLogin()">Ingresar</button>
+      </div>
+    </div>
+    `
+  });
+
+  fetch(URL + "?accion=avisos")
+    .then(r => r.json())
+    .then(data => {
+      let html = "";
+
+      data.forEach(a => {
+        html += `
+          <div class="card" style="margin:10px;">
+            <div class="card-content card-content-padding">
+              <b>${a.fecha}</b><br>
+              ${a.mensaje}
+            </div>
+          </div>
+        `;
+      });
+
+      document.getElementById("avisos").innerHTML = html;
     });
-  </script>
+}
+
+function irLogin(){
+  mainView.router.navigate({
+    content: `
+    <div class="page">
+      <div class="navbar">
+        <div class="navbar-inner">
+          <div class="title">Login</div>
+        </div>
+      </div>
+
+      <div class="page-content" style="padding:20px;">
+        <input id="usuario" placeholder="Usuario"><br><br>
+        <input id="password" type="password" placeholder="Contraseña"><br><br>
+
+        <button class="button button-fill" onclick="login()">Ingresar</button>
+      </div>
+    </div>
+    `
+  });
+}
+
+function login(){
+  let u = document.getElementById("usuario").value;
+  let p = document.getElementById("password").value;
+
+  fetch(URL + "?usuario=" + u + "&password=" + p)
+    .then(r => r.json())
+    .then(data => {
+      if(data.status === "ok"){
+        mostrarPanel(data);
+      } else {
+        app.dialog.alert("Datos incorrectos");
+      }
+    });
+}
+
+function mostrarPanel(data){
+  let html = `<h3>${data.nombre}</h3>`;
+
+  html += "<h4>Notas</h4>";
+  data.notas.forEach(n=>{
+    html += `<p>${n.materia}: ${n.nota}</p>`;
+  });
+
+  html += "<h4>Disciplina</h4>";
+  data.disciplina.forEach(d=>{
+    html += `<p>${d.fecha}: ${d.detalle}</p>`;
+  });
+
+  mainView.router.navigate({
+    content: `
+    <div class="page">
+      <div class="navbar">
+        <div class="navbar-inner">
+          <div class="title">Panel</div>
+        </div>
+      </div>
+
+      <div class="page-content" style="padding:20px;">
+        ${html}
+      </div>
+    </div>
+    `
+  });
+}
+</script>
 
 </body>
 </html>
