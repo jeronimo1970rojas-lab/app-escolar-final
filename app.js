@@ -1,141 +1,151 @@
-var app = new Framework7();
+var app = new Framework7({
+  el: '#app',
+
+  routes: [
+    {
+      path: '/',
+      content: `
+        <div class="page">
+          <div class="page-content" style="text-align:center;padding-top:80px;">
+            <h1>App Escolar</h1>
+            <button class="button button-fill" onclick="irLogin()">
+              Ingresar
+            </button>
+          </div>
+        </div>
+      `
+    },
+
+    {
+      path: '/login/',
+      content: `
+        <div class="page">
+          <div class="page-content" style="padding:20px;">
+            <h2>Login</h2>
+
+            <input id="usuario" type="text" placeholder="Usuario"><br><br>
+            <input id="password" type="password" placeholder="Contraseña"><br><br>
+
+            <button class="button button-fill" onclick="login()">
+              Ingresar
+            </button>
+          </div>
+        </div>
+      `
+    },
+
+    {
+      path: '/panel/',
+      content: `
+        <div class="page">
+          <div style="background:#2196f3;color:white;padding:20px;text-align:center;">
+            <h2 id="nombreAlumno"></h2>
+          </div>
+
+          <div class="page-content">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:10px;">
+              <button class="button button-fill" onclick="mostrarNotas()">
+                📘 Notas
+              </button>
+
+              <button class="button button-fill color-red" onclick="mostrarDisciplina()">
+                ⚠️ Disciplina
+              </button>
+            </div>
+
+            <div id="contenido" style="padding:10px;"></div>
+          </div>
+        </div>
+      `,
+      on: {
+        pageAfterIn: function () {
+          cargarPanel();
+        }
+      }
+    }
+  ]
+});
 
 var mainView = app.views.create('.view-main', {
   url: '/'
 });
 
-var URL = "https://script.google.com/macros/s/AKfycbw5qQ1LCdGap5ye3Bi9Ir45ep8KtGwSKc5BGVjPfsjjsFM7iorYmHUdC5_XqrV4kVM/exec";
+var url = 'TU_URL_DE_GOOGLE_APPS_SCRIPT';
 
-// PANTALLA INICIO
-mainView.router.navigate({
-  content: `
-  <div class="page no-navbar">
-    <div class="page-content inicio">
+var datosGlobal = null;
 
-      <div>
-        <img src="logo.png" class="logo">
-        <h2>PRE PROMO B</h2>
-        <h3>CBSC</h3>
-      </div>
-
-      <div>
-        <img src="profesor.jpg" class="profesor">
-        <p>Bienvenidos al sistema académico</p>
-      </div>
-
-    </div>
-  </div>
-  `
-});
-
-// IR A AVISOS
-setTimeout(() => {
-  cargarAvisos();
-}, 3000);
-
-function cargarAvisos(){
-  mainView.router.navigate({
-    content: `
-    <div class="page">
-      <div class="navbar">
-        <div class="navbar-inner">
-          <div class="title">Avisos</div>
-        </div>
-      </div>
-
-      <div class="page-content" id="avisos">
-        <p style="text-align:center;">Cargando...</p>
-      </div>
-
-      <div class="footer-btn">
-        <button class="button button-fill" onclick="irLogin()">Ingresar</button>
-      </div>
-    </div>
-    `
-  });
-
-  fetch(URL + "?accion=avisos")
-    .then(r => r.json())
-    .then(data => {
-      let html = "";
-
-      data.forEach(a => {
-        html += `
-          <div class="card-app">
-            <b>${a.fecha}</b><br>
-            ${a.mensaje}
-          </div>
-        `;
-      });
-
-      document.getElementById("avisos").innerHTML = html;
-    });
+function irLogin() {
+  mainView.router.navigate('/login/');
 }
 
-// LOGIN
-function irLogin(){
-  mainView.router.navigate({
-    content: `
-    <div class="page">
-      <div class="navbar">
-        <div class="navbar-inner">
-          <div class="title">Login</div>
-        </div>
-      </div>
+function login() {
+  var usuario = document.getElementById('usuario').value.trim();
+  var password = document.getElementById('password').value.trim();
 
-      <div class="page-content" style="padding:20px;">
-        <input id="usuario" placeholder="Usuario"><br><br>
-        <input id="password" type="password" placeholder="Contraseña"><br><br>
+  if (!usuario || !password) {
+    app.dialog.alert('Ingrese usuario y contraseña');
+    return;
+  }
 
-        <button class="button button-fill" onclick="login()">Ingresar</button>
-      </div>
-    </div>
-    `
-  });
-}
-
-function login(){
-  let u = document.getElementById("usuario").value;
-  let p = document.getElementById("password").value;
-
-  fetch(URL + "?usuario=" + u + "&password=" + p)
-    .then(r => r.json())
+  fetch(
+    url +
+    '?usuario=' + encodeURIComponent(usuario) +
+    '&password=' + encodeURIComponent(password)
+  )
+    .then(response => response.json())
     .then(data => {
-      if(data.status === "ok"){
-        mostrarPanel(data);
+      if (data.status === 'ok') {
+        datosGlobal = data;
+        mainView.router.navigate('/panel/');
       } else {
-        app.dialog.alert("Datos incorrectos");
+        app.dialog.alert('Usuario o contraseña incorrectos');
       }
+    })
+    .catch(error => {
+      console.error(error);
+      app.dialog.alert('Error de conexión');
     });
 }
 
-// PANEL
-function mostrarPanel(data){
-  let html = `<h3>${data.nombre}</h3>`;
+function cargarPanel() {
+  if (!datosGlobal) return;
+  document.getElementById('nombreAlumno').textContent = datosGlobal.nombre;
+}
 
-  html += "<h4>Notas</h4>";
-  data.notas.forEach(n=>{
-    html += `<p>${n.materia}: ${n.nota}</p>`;
+function mostrarNotas() {
+  if (!datosGlobal || !datosGlobal.notas) return;
+
+  let html = '';
+
+  datosGlobal.notas.forEach(function(n) {
+    html += `
+      <div class="card-app">
+        <strong>${n.materia}</strong><br>
+        Nota: ${n.nota}
+      </div>
+    `;
   });
 
-  html += "<h4>Disciplina</h4>";
-  data.disciplina.forEach(d=>{
-    html += `<p>${d.fecha}: ${d.detalle}</p>`;
-  });
+  document.getElementById('contenido').innerHTML = html;
+}
 
-  mainView.router.navigate({
-    content: `
-    <div class="page">
-      <div class="navbar">
-        <div class="navbar-inner">
-          <div class="title">Panel</div>
+function mostrarDisciplina() {
+  if (!datosGlobal) return;
+
+  let html = '';
+
+  if (!datosGlobal.disciplina || datosGlobal.disciplina.length === 0) {
+    html = '<div class="card-app">Sin registros disciplinarios</div>';
+  } else {
+    datosGlobal.disciplina.forEach(function(d) {
+      html += `
+        <div class="card-app">
+          <strong>📅 ${d.fecha}</strong><br>
+          ${d.detalle}
         </div>
-      </div>
+      `;
+    });
+  }
 
-      <div class="page-content" style="padding:20px;">
-        ${html}
-      </div>
-    </div>
-    `
-  });
+  document.getElementById('contenido').innerHTML = html;
 }
