@@ -1,12 +1,37 @@
-.page-content {
-  background: #f5f5f5;
-  padding: 10px;
+.inicio{
+  background: linear-gradient(135deg,#1565c0,#42a5f5);
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  align-items:center;
+  padding:20px;
+  color:white;
+  text-align:center;
 }
 
-.card-app {
-  background: white;
-  margin: 12px 0;
-  padding: 15px;
-  border-radius: 15px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+.logo{
+  width:120px;
+}
+
+.profesor{
+  width:130px;
+  height:130px;
+  border-radius:50%;
+  object-fit:cover;
+}
+
+.card-app{
+  background:white;
+  margin:10px;
+  padding:15px;
+  border-radius:10px;
+}
+
+.footer-btn{
+  position:fixed;
+  bottom:0;
+  width:100%;
+  padding:10px;
+  background:white;
 }
