@@ -4,7 +4,7 @@ var mainView = app.views.create('.view-main', {
   url: '/'
 });
 
-var URL = "PEGA_AQUI_TU_URL_DE_GOOGLE_SCRIPT";
+var URL = "https://script.google.com/macros/s/AKfycbw5qQ1LCdGap5ye3Bi9Ir45ep8KtGwSKc5BGVjPfsjjsFM7iorYmHUdC5_XqrV4kVM/exec";
 
 // PANTALLA INICIO
 mainView.router.navigate({
